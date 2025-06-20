@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;800&family=Rajdhani:wght@300;400;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+  overflow-x: hidden;
+  font-family: 'Rajdhani', sans-serif;
+  height: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #FF1E00, #FF8700);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #FF8700, #0600EF);
+}
+
+/* F1 Racing Lines Animation */
+.racing-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.racing-line {
+  position: absolute;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(transparent, #FF1E00, transparent);
+  animation: race-down 3s linear infinite;
+}
+
+.racing-line:nth-child(odd) {
+  background: linear-gradient(transparent, #00FFFF, transparent);
+  animation-delay: -1.5s;
+}
+
+@keyframes race-down {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(100vh + 100px));
+    opacity: 0;
+  }
+}
+
+/* Tech Glow Effects */
+.tech-glow {
+  position: relative;
+}
+
+.tech-glow::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #39FF14, #00FFFF, #FF1493, #39FF14);
+  border-radius: inherit;
+  z-index: -1;
+  animation: tech-rotate 4s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes tech-rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* F1 Card Hover Effects */
+.f1-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.f1-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.f1-card:hover::before {
+  left: 100%;
+}
+
+.f1-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(255, 30, 0, 0.3);
+}
+
+/* Neon Text Effect */
+.neon-text {
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 15px currentColor,
+    0 0 20px currentColor;
+}
+
+/* F1 Button Styles */
+.f1-button {
+  position: relative;
+  background: linear-gradient(45deg, #FF1E00, #FF8700);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.f1-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.f1-button:hover::before {
+  left: 100%;
+}
+
+.f1-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 30, 0, 0.4);
+}
+
+/* Racing Grid Pattern */
+.racing-grid {
+  background-image: 
+    linear-gradient(rgba(255, 30, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 30, 0, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: grid-move 20s linear infinite;
+}
+
+@keyframes grid-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+/* Tech Card Dark Mode */
+.tech-card {
+  background: rgba(26, 26, 26, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(30, 144, 255, 0.1);
+  position: relative;
+}
+
+.tech-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(30, 144, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.tech-card:hover::after {
+  opacity: 1;
+}
+
+/* Speed Lines Effect */
+.speed-lines {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #FF1E00, transparent);
+  animation: speed-line 1s ease-out;
+}
+
+@keyframes speed-line {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Particle Effect Background */
+.particle-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* F1 Team Color Accents */
+.team-redbull { --team-color: #FF1E00; }
+.team-mercedes { --team-color: #00D2BE; }
+.team-ferrari { --team-color: #DC143C; }
+.team-mclaren { --team-color: #FF8700; }
+.team-alpine { --team-color: #0600EF; }
+
+.team-accent {
+  border-left: 4px solid var(--team-color);
+  box-shadow: 0 0 20px rgba(var(--team-color), 0.3);
+}
+
+/* Professional Card Layouts */
+.pro-card {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(42, 42, 42, 0.95));
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pro-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(255, 30, 0, 0.5);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(255, 30, 0, 0.2);
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.matrix-column {
+  position: absolute;
+  top: -100px;
+  color: #39FF14;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  animation: matrix-fall linear infinite;
+}
+
+@keyframes matrix-fall {
+  to {
+    transform: translateY(calc(100vh + 100px));
+  }
+}
