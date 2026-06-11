@@ -22,7 +22,7 @@ export const LampContainer = ({ children, className }) => {
           whileInView={{ opacity: 1, width: "30rem" }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
           style={{ backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))` }}
-          className="absolute inset-auto right-1/2 h-56 overflow-visible w-[30rem] bg-gradient-conic from-accent via-transparent to-transparent text-white [--conic-position:from_70deg_at_center_top] [mask-image:linear-gradient(to_left,white,transparent)]"
+          className="absolute inset-auto right-1/2 h-56 overflow-visible w-[30rem] max-w-[50vw] md:max-w-none bg-gradient-conic from-accent via-transparent to-transparent text-white [--conic-position:from_70deg_at_center_top] [mask-image:linear-gradient(to_left,white,transparent)]"
         >
         </motion.div>
         <motion.div
@@ -30,7 +30,7 @@ export const LampContainer = ({ children, className }) => {
           whileInView={{ opacity: 1, width: "30rem" }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
           style={{ backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))` }}
-          className="absolute inset-auto left-1/2 h-56 w-[30rem] bg-gradient-conic from-transparent via-transparent to-accent text-white [--conic-position:from_290deg_at_center_top] [mask-image:linear-gradient(to_right,white,transparent)]"
+          className="absolute inset-auto left-1/2 h-56 w-[30rem] max-w-[50vw] md:max-w-none bg-gradient-conic from-transparent via-transparent to-accent text-white [--conic-position:from_290deg_at_center_top] [mask-image:linear-gradient(to_right,white,transparent)]"
         >
         </motion.div>
         <div className="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-primary/20 blur-2xl"></div>
@@ -54,7 +54,7 @@ export const LampContainer = ({ children, className }) => {
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] bg-accent "
+          className="absolute inset-auto z-50 h-0.5 w-[30rem] max-w-[100vw] md:max-w-none -translate-y-[7rem] bg-accent "
         ></motion.div>
 
         <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-primary/10 backdrop-blur-[2px]"></div>

@@ -24,7 +24,7 @@ export const IpadScroll = ({ titleComponent, images }) => {
 
   return (
     <div
-      className="h-[50rem] md:h-[70rem] flex items-center justify-center relative p-2 md:p-10 mb-32 md:mb-40"
+      className="min-h-[50vh] md:h-[70rem] flex items-center justify-center relative p-2 md:p-10 mb-12 md:mb-40"
       ref={containerRef}
     >
       <div
@@ -41,7 +41,7 @@ export const IpadScroll = ({ titleComponent, images }) => {
             scale,
             y: translateY,
           }}
-          className="max-w-5xl mx-auto bg-[#1A1A1A] border-[8px] md:border-[12px] border-[#2A2A2A] shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden rounded-[2rem] md:rounded-[3rem] p-3 md:p-4 flex justify-center items-center relative aspect-[4/3] md:aspect-[16/10]"
+          className="w-full max-w-5xl mx-auto bg-[#1A1A1A] border-[4px] md:border-[12px] border-[#2A2A2A] shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden rounded-[1.5rem] md:rounded-[3rem] p-2 md:p-4 flex justify-center items-center relative aspect-[14/10] md:aspect-[16/10]"
         >
           {/* iPad Camera Hole */}
           <div className="absolute left-4 top-1/2 -translate-y-1/2 w-2 h-2 bg-black rounded-full hidden md:block z-20 shadow-inner"></div>

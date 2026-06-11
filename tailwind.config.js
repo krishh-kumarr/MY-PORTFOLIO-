@@ -22,8 +22,8 @@ module.exports = {
         'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       fontSize: {
-        'hero': ['clamp(3rem, 6vw, 6rem)', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '700' }],
-        'section': ['clamp(2rem, 4vw, 3rem)', { lineHeight: '1.15', letterSpacing: '-0.025em', fontWeight: '700' }],
+        'hero': ['clamp(2.5rem, 8vw, 6rem)', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '700' }],
+        'section': ['clamp(1.75rem, 5vw, 3rem)', { lineHeight: '1.15', letterSpacing: '-0.025em', fontWeight: '700' }],
         'subtitle': ['clamp(1.125rem, 2vw, 1.5rem)', { lineHeight: '1.4', fontWeight: '500' }],
         'body': ['1.125rem', { lineHeight: '1.7' }],
         'small': ['0.875rem', { lineHeight: '1.5' }],
