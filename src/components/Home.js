@@ -14,7 +14,7 @@ const Home = () => {
       <div className="max-w-6xl mx-auto w-full">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
           {/* Left — Text Content */}
-          <div className="space-y-8 order-2 lg:order-1">
+          <div className="space-y-8 order-1 lg:order-1">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ const Home = () => {
 
           {/* Right — Floating Workspace Scene */}
           <motion.div
-            className="relative order-1 lg:order-2"
+            className="relative order-2 lg:order-2 mt-12 lg:mt-0 transform scale-[0.85] sm:scale-100 origin-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}

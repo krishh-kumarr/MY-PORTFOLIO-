@@ -28,7 +28,7 @@ const DockIcon = ({ mouseX, item }) => {
     return val - bounds.x - bounds.width / 2;
   });
 
-  let widthSync = useTransform(distance, [-150, 0, 150], [44, 80, 44]);
+  let widthSync = useTransform(distance, [-150, 0, 150], [38, 56, 38]);
   let width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
   const [hovered, setHovered] = useState(false);
