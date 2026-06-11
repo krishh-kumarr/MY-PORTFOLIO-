@@ -11,19 +11,12 @@ const Skills = lazy(() => import('./components/Skillset'));
 const Projects = lazy(() => import('./components/Projects'));
 const Contact = lazy(() => import('./components/Contact'));
 
-const NAV_ITEMS = [
-  { id: 'home', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'contact', label: 'Contact' },
-];
+
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [navScrolled, setNavScrolled] = useState(false);
   const mainRef = useRef(null);
 
   const navItems = [
@@ -44,7 +37,6 @@ const App = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
-      setNavScrolled(scrollTop > 40);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
