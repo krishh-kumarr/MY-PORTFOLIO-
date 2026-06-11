@@ -1,269 +1,184 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  TypingAnimation, 
-  FloatingElements, 
-  SlideInFromLeft, 
-  SlideInFromRight,
-  CountUpAnimation
-} from '../ui/Animations';
-import { F1Card, NeonText } from '../ui/Effects';
-import profileImage from '../assets/profile_new.png'
+import { TypingText, ParallaxFloat } from '../ui/Animations';
+import { MacBookMockup, PhoneMockup, GlassCard } from '../ui/Effects';
 
 const Home = () => {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [activeStats, setActiveStats] = useState(null);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const stats = [
-    { label: 'Projects Completed', value: 25, suffix: '+', color: 'text-racing-red' },
-    { label: 'Years Experience', value: 3, suffix: '+', color: 'text-accent-cyan' },
-    { label: 'Technologies Mastered', value: 15, suffix: '+', color: 'text-racing-orange' },
-    { label: 'Coffee Cups', value: 847, suffix: '', color: 'text-accent-green' }
-  ];
-
-  const skills = [
-    'Full-Stack Developer',
-    'AI/ML Engineer', 
-    'Data Scientist',
-    'F1 Data Analyst',
-    'Crypto Trader',
-    'Tech Innovator'
-  ];
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <div className="min-h-screen flex flex-col px-6 lg:px-12 relative overflow-y-auto">
-      {/* Main Hero Section */}
-      <div className="max-w-7xl mx-auto w-full pt-20 pb-12">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
-          {/* Left Column - Text Content */}
-          <div className="space-y-8">
-            <SlideInFromLeft delay={0.2}>
-              <div className="space-y-4">
-                <motion.div
-                  className="text-sm font-primary text-accent-cyan tracking-widest"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  {'>'} LOADING PORTFOLIO...
-                </motion.div>
-                
-                <h1 className="text-6xl lg:text-8xl font-primary font-bold leading-tight">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-racing-red via-racing-orange to-accent-cyan">
-                    KRISH
-                  </span>
-                  <br />
-                  <span className="text-white">
-                    KUMAR
-                  </span>
-                </h1>
-                
-                <div className="text-xl lg:text-2xl font-secondary text-accent-green">
-                  <TypingAnimation
-                    texts={skills}
-                    speed={120}
-                    deleteSpeed={80}
-                    pauseDuration={2000}
-                    prefix="// "
-                  />
-                </div>
-              </div>
-            </SlideInFromLeft>
-
-            <SlideInFromLeft delay={0.6}>
-              <div className="space-y-6">
-                <p className="text-lg text-gray-300 leading-relaxed max-w-xl">
-                  Welcome to my portfolio. I'm a passionate developer who combines the 
-                  <NeonText color="racing-red"> precision of motorsport engineering </NeonText> 
-                  with the 
-                  <NeonText color="accent-cyan"> advanced tech of Gotham </NeonText>
-                  to create cutting-edge digital solutions.
-                </p>
-                
-                <div className="flex flex-wrap gap-4">
-                  <motion.button
-                    className="f1-button rounded-lg px-8 py-4"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'projects' }))}
-                  >
-                    EXPLORE PROJECTS
-                  </motion.button>
-                  
-                  <motion.button
-                    className="px-8 py-4 border-2 border-neon-cyan text-neon-cyan rounded-lg font-racing hover:bg-neon-cyan hover:text-bat-black transition-all duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      // Create a download link for the resume
-                      const link = document.createElement('a');
-                      link.href = '/Krish_Kumar.pdf'; // Assuming you've added the PDF to the public folder
-                      link.download = 'Krish_Kumar_Resume.pdf';
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                    }}
-                  >
-                    DOWNLOAD CV
-                  </motion.button>
-                </div>
-              </div>
-            </SlideInFromLeft>
-          </div>
-
-          {/* Right Column - Visual Elements */}
-          <SlideInFromRight delay={0.4}>
-            <div className="relative">
-              {/* Profile Image Container */}
-              <div className="relative w-80 h-80 mx-auto">
-                {/* Rotating Gradient Border */}
-                <motion.div
-                  className="absolute inset-0 rounded-full bg-gradient-to-r from-f1-red via-f1-orange to-neon-cyan"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                />
-                
-                {/* Static Image Container */}
-                <div className="absolute inset-1 rounded-full bg-bat-black overflow-hidden">
-                  <img 
-                    src={profileImage}
-                    alt="Krish Kumar"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-              
-              {/* Floating Tech Icons */}
-              <FloatingElements className="absolute -top-4 -right-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-f1-red to-f1-orange rounded-lg flex items-center justify-center text-white font-bold">
-                  JS
-                </div>
-              </FloatingElements>
-              
-              <FloatingElements className="absolute -bottom-4 -left-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-neon-cyan to-neon-green rounded-lg flex items-center justify-center text-black font-bold">
-                  AI
-                </div>
-              </FloatingElements>
-              
-              <FloatingElements className="absolute top-8 -left-8">
-                <div className="w-10 h-10 bg-gradient-to-r from-f1-blue to-f1-purple rounded-lg flex items-center justify-center text-white text-sm font-bold">
-                  F1
-                </div>
-              </FloatingElements>
-            </div>
-          </SlideInFromRight>
-        </div>
-      </div>
-
-      {/* Stats Section */}
-      <motion.div 
-        className="mt-12 mb-12 max-w-7xl mx-auto w-full"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
-      >
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <F1Card 
-              key={index}
-              className="text-center cursor-pointer team-redbull relative overflow-hidden"
-              onMouseEnter={() => setActiveStats(index)}
-              onMouseLeave={() => setActiveStats(null)}
+    <div className="min-h-screen flex items-center px-6 lg:px-12 pt-20 pb-16">
+      <div className="max-w-6xl mx-auto w-full">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+          {/* Left — Text Content */}
+          <div className="space-y-8 order-2 lg:order-1">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="space-y-6"
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="relative z-10"
-              >
-                <div className={`text-3xl lg:text-4xl font-racing font-bold ${stat.color} mb-2`}>
-                  <CountUpAnimation end={stat.value} suffix={stat.suffix} />
-                </div>
-                <div className="text-sm text-gray-400 font-formula">
-                  {stat.label}
-                </div>
-              </motion.div>
-              
-              {activeStats === index && (
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-f1-red/20 to-f1-orange/20 rounded-lg"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                />
-              )}
-            </F1Card>
-          ))}
-        </div>
-      </motion.div>
+              <div className="text-accent text-small font-medium tracking-widest uppercase">
+                Portfolio 2025
+              </div>
 
-      {/* Quick Navigation */}
-      <motion.div 
-        className="mt-12 mb-20 max-w-4xl mx-auto w-full text-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
-        <div className="text-sm text-neon-cyan font-racing mb-6 tracking-wider">
-          QUICK ACCESS PANEL
-        </div>
-        
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-            { label: 'VIEW PROJECTS', icon: '🚀', color: 'from-f1-red to-f1-orange', section: 'projects' },
-            { label: 'SKILLS MATRIX', icon: '⚡', color: 'from-neon-cyan to-neon-green', section: 'skillset' },
-            { label: 'CONTACT ME', icon: '📡', color: 'from-f1-blue to-f1-purple', section: 'contact' },
-            { label: 'RESUME', icon: '📄', color: 'from-f1-orange to-f1-red', section: 'about' }
-          ].map((item, index) => (
-            <motion.button
-              key={index}
-              onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: item.section }))}
-              className={`p-4 rounded-lg bg-gradient-to-r ${item.color} text-white font-racing text-xs hover:shadow-lg transition-all duration-300`}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              <h1 className="text-hero">
+                <span className="text-text-primary">Krish Kumar</span>
+              </h1>
+
+              <div className="text-subtitle text-text-secondary">
+                <TypingText
+                  texts={[
+                    'Engineer.',
+                    'Founder.',
+                    'Problem Solver.',
+                    'Hackathon Winner.',
+                  ]}
+                  speed={90}
+                />
+              </div>
+
+              <p className="text-body text-text-secondary max-w-lg leading-relaxed">
+                Building intelligent products that combine AI, software engineering
+                and real-world impact. Winner of Red Bull Basement. Passionate about
+                turning ideas into products people love.
+              </p>
+            </motion.div>
+
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.7 + index * 0.1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex flex-wrap gap-4"
             >
-              <div className="text-2xl mb-2">{item.icon}</div>
-              {item.label}
-            </motion.button>
-          ))}
+              <button
+                onClick={() => scrollTo('projects')}
+                className="btn-primary"
+              >
+                View Projects
+              </button>
+              <button
+                onClick={() => scrollTo('contact')}
+                className="btn-secondary"
+              >
+                Get In Touch
+              </button>
+            </motion.div>
+
+            {/* Subtle stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="flex gap-10 pt-4"
+            >
+              {[
+                { value: '25+', label: 'Projects' },
+                { value: '3+', label: 'Years Exp.' },
+                { value: '5+', label: 'Hackathons Won' },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-text-primary font-semibold text-xl">{stat.value}</div>
+                  <div className="text-text-tertiary text-small">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right — Floating Workspace Scene */}
+          <motion.div
+            className="relative order-1 lg:order-2"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <div className="relative w-full max-w-lg mx-auto" style={{ minHeight: '420px' }}>
+              {/* MacBook Mockup */}
+              <ParallaxFloat offset={8} delay={0}>
+                <div className="relative z-10">
+                  <MacBookMockup className="shadow-glass-lg">
+                    <div className="bg-[#0D1117] p-4 text-xs font-mono leading-relaxed">
+                      <div className="text-text-tertiary mb-1">{'// ParentBud — AI Parenting Platform'}</div>
+                      <div>
+                        <span className="text-[#FF7B72]">const</span>{' '}
+                        <span className="text-[#D2A8FF]">analyzeChild</span>{' '}
+                        <span className="text-text-secondary">= </span>
+                        <span className="text-[#FF7B72]">async</span>
+                        <span className="text-text-secondary"> (</span>
+                        <span className="text-[#FFA657]">data</span>
+                        <span className="text-text-secondary">) =&gt; {'{'}</span>
+                      </div>
+                      <div className="pl-4">
+                        <span className="text-[#FF7B72]">const</span>{' '}
+                        <span className="text-text-primary">insights</span>{' '}
+                        <span className="text-text-secondary">= </span>
+                        <span className="text-[#FF7B72]">await</span>{' '}
+                        <span className="text-[#D2A8FF]">ai</span>
+                        <span className="text-text-secondary">.</span>
+                        <span className="text-[#D2A8FF]">predict</span>
+                        <span className="text-text-secondary">(</span>
+                        <span className="text-[#FFA657]">data</span>
+                        <span className="text-text-secondary">);</span>
+                      </div>
+                      <div className="pl-4">
+                        <span className="text-[#FF7B72]">return</span>{' '}
+                        <span className="text-[#D2A8FF]">generatePlan</span>
+                        <span className="text-text-secondary">(</span>
+                        <span className="text-text-primary">insights</span>
+                        <span className="text-text-secondary">);</span>
+                      </div>
+                      <div>
+                        <span className="text-text-secondary">{'}'}</span>
+                      </div>
+                    </div>
+                  </MacBookMockup>
+                </div>
+              </ParallaxFloat>
+
+              {/* Phone Mockup — floating to the right */}
+              <ParallaxFloat offset={14} delay={1.5}>
+                <div className="absolute -right-4 lg:-right-8 top-8 z-20 w-[120px]">
+                  <PhoneMockup className="shadow-glass-lg">
+                    <div className="bg-[#0D1117] aspect-[9/16] flex flex-col items-center justify-center p-3">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent-hover flex items-center justify-center mb-2">
+                        <span className="text-primary font-bold text-xs">PB</span>
+                      </div>
+                      <div className="text-[8px] text-text-primary font-medium text-center">ParentBud</div>
+                      <div className="text-[6px] text-text-tertiary text-center mt-1">AI Parenting</div>
+                      <div className="mt-3 w-full space-y-1.5">
+                        <div className="h-1 bg-accent/20 rounded-full w-full" />
+                        <div className="h-1 bg-accent/15 rounded-full w-4/5" />
+                        <div className="h-1 bg-accent/10 rounded-full w-3/5" />
+                      </div>
+                    </div>
+                  </PhoneMockup>
+                </div>
+              </ParallaxFloat>
+
+              {/* Terminal Window — floating bottom left */}
+              <ParallaxFloat offset={10} delay={3}>
+                <div className="absolute -left-4 lg:-left-8 bottom-0 z-20 w-[180px]">
+                  <GlassCard className="p-3 shadow-glass animated-border">
+                    <div className="text-[8px] text-accent font-medium mb-2 uppercase tracking-wider">Terminal</div>
+                    <div className="font-mono text-[9px] space-y-1">
+                      <div className="text-success">$ npm run build</div>
+                      <div className="text-text-tertiary">✓ Compiled successfully</div>
+                      <div className="text-text-tertiary">✓ 0 errors, 0 warnings</div>
+                      <div className="text-accent">Bundle: 142kb gzipped</div>
+                    </div>
+                  </GlassCard>
+                </div>
+              </ParallaxFloat>
+
+              {/* Accent glow behind the scene */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
-
-      {/* Racing Lines Background Animation */}
-      <div className="absolute top-0 right-0 w-full h-full pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute top-1/4 right-0 w-2 h-32 bg-gradient-to-b from-transparent via-f1-red to-transparent"
-          animate={{ y: [0, 400, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute top-1/2 right-16 w-1 h-24 bg-gradient-to-b from-transparent via-neon-cyan to-transparent"
-          animate={{ y: [0, 300, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 2 }}
-        />
       </div>
-
-      {/* Time Display */}
-      <motion.div 
-        className="absolute top-24 right-8 text-right text-neon-green font-racing text-sm"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-      >
-        <div>SYSTEM TIME</div>
-        <div className="text-lg">{currentTime.toLocaleTimeString()}</div>
-      </motion.div>
     </div>
   );
 };

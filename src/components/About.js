@@ -1,316 +1,188 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  FadeInUp, 
-  SlideInFromLeft, 
-  SlideInFromRight,
-  StaggeredFadeIn,
-  ScaleOnHover
-} from '../ui/Animations';
-import { F1Card, TechCard, NeonText } from '../ui/Effects';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ScrollReveal, FadeInUp } from '../ui/Animations';
+import { GlassCard, Trophy } from '../ui/Effects';
+import { LampContainer } from '../ui/lamp';
+import profileImage from '../assets/profile.jpg';
+
+const achievements = [
+  {
+    year: '2024',
+    title: 'Red Bull Basement Winner',
+    description: 'National winner — built an innovative solution addressing real-world challenges at the international hackathon.',
+    highlight: true,
+  },
+  {
+    year: '2024–25',
+    title: 'Academic Excellence Award',
+    description: 'Recognized for outstanding academic performance at SRM University.',
+  },
+  {
+    year: '2024–25',
+    title: 'Smart India Hackathon',
+    description: 'Internal round winner — competed among top engineering teams across India.',
+  },
+  {
+    year: '2024',
+    title: 'Ideathon Champion',
+    description: 'First place for AI-powered solution design, pitch, and technical execution.',
+  },
+  {
+    year: '3rd Year',
+    title: 'Performance Scholarship',
+    description: 'Performance-based scholarship awarded by SRM University for consistent excellence.',
+  },
+];
 
 const About = () => {
-  const [activeTimeline, setActiveTimeline] = useState(0);
-  const [selectedInterest, setSelectedInterest] = useState(null);
-
-  const timeline = [
-    {
-      year: '2021',
-      title: 'The Beginning',
-      description: 'Started my journey in computer science, fascinated by the intersection of technology and racing.',
-      icon: '🚀',
-      color: 'from-f1-red to-f1-orange'
-    },
-    {
-      year: '2022',
-      title: 'Full-Stack Development',
-      description: 'Mastered modern web technologies and built my first major projects.',
-      icon: '💻',
-      color: 'from-neon-cyan to-neon-green'
-    },
-    {
-      year: '2023',
-      title: 'AI & Data Science',
-      description: 'Dove deep into machine learning and AI, specializing in F1 data analytics.',
-      icon: '🤖',
-      color: 'from-f1-blue to-f1-purple'
-    },
-    {
-      year: '2024',
-      title: 'Tech Expert',
-      description: 'Emerged as a full-stack developer, combining speed, precision, and innovation.',
-      icon: '🦸‍♂️',
-      color: 'from-f1-orange to-f1-red'
-    }
-  ];
-
-  const interests = [
-    {
-      title: 'Formula 1 Racing',
-      description: 'Passionate about F1 analytics, studying telemetry data and race strategies.',
-      icon: '🏎️',
-      details: 'Max Verstappen and Lewis Hamilton inspire my precision and relentless pursuit of excellence.',
-      stats: '24 races analyzed this season'
-    },
-    {
-      title: 'Artificial Intelligence',
-      description: 'Building intelligent systems that can learn, adapt, and make decisions.',
-      icon: '🧠',
-      details: 'Specialized in neural networks, computer vision, and natural language processing.',
-      stats: '15+ AI models deployed'
-    },
-    {
-      title: 'Cryptocurrency',
-      description: 'Developing trading algorithms and blockchain-based solutions.',
-      icon: '₿',
-      details: 'Created automated trading bots with 87% success rate in volatile markets.',
-      stats: '$50K+ in automated trades'
-    },
-    {
-      title: 'Cybersecurity',
-      description: 'Technical approach to digital security and ethical hacking.',
-      icon: '🛡️',
-      details: 'Penetration testing, vulnerability assessment, and secure code development.',
-      stats: '10+ security audits completed'
-    }
-  ];
-
-  const values = [
-    {
-      title: 'Precision',
-      description: 'Like an F1 driver hitting the apex, every line of code matters.',
-      icon: '🎯'
-    },
-    {
-      title: 'Speed',
-      description: 'Fast execution without compromising quality or security.',
-      icon: '⚡'
-    },
-    {
-      title: 'Innovation',
-      description: 'Pushing boundaries and exploring uncharted territories.',
-      icon: '🚀'
-    },
-    {
-      title: 'Excellence',
-      description: 'Striving for pole position in every project I undertake.',
-      icon: '🏆'
-    }
-  ];
-
   return (
-    <div className="min-h-screen px-6 lg:px-12 py-12">
-      <div className="max-w-7xl mx-auto space-y-20">
-        
-        {/* Header Section */}
-        <FadeInUp className="text-center space-y-6">
-          <motion.div
-            className="text-sm font-racing text-neon-cyan tracking-widest"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            {'>'} LOADING PROFILE DATA...
-          </motion.div>
-          
-          <h1 className="text-5xl lg:text-7xl font-racing font-bold">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-f1-red via-f1-orange to-neon-cyan">
-              ABOUT
-            </span>
-            <br />
-            <span className="text-white">THE TECH EXPERT</span>
-          </h1>
-          
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            I'm not just a developer—I'm a tech expert who operates at the intersection of 
-            <NeonText color="f1-red"> Formula 1 precision </NeonText> and 
-            <NeonText color="neon-cyan"> cutting-edge technology</NeonText>. 
-            My mission: to build extraordinary digital experiences that push the boundaries of what's possible.
-          </p>
-        </FadeInUp>
+    <div className="py-32 px-6 lg:px-12">
+      <div className="max-w-6xl mx-auto space-y-32">
+        {/* Section Header */}
+        <LampContainer>
+          <ScrollReveal className="text-center space-y-4">
+            <div className="text-accent text-small font-medium tracking-widest uppercase">
+              About
+            </div>
+            <h2 className="text-section text-text-primary">
+              Engineer with a founder mindset
+            </h2>
+          </ScrollReveal>
+        </LampContainer>
 
-        {/* Personal Story Section */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <SlideInFromLeft>
-            <TechCard className="space-y-6" glow>
-              <h2 className="text-3xl font-racing text-f1-orange mb-4">
-                THE ORIGIN STORY
-              </h2>
-              
-              <div className="space-y-4 text-gray-300">
-                <p>
-                  My journey began with a simple fascination: watching Max Verstappen's 
-                  surgical precision on the Monaco Grand Prix. That moment sparked something—
-                  the realization that technology, like racing, requires split-second decisions, 
-                  flawless execution, and relentless optimization.
-                </p>
-                
-                <p>
-                  Inspired by Lewis Hamilton's strategic brilliance and Verstappen's raw speed, 
-                  I developed my own approach to development: combining technical precision 
-                  with an F1 driver's precision. Every project is a race, every bug is an 
-                  opponent to overtake.
-                </p>
-                
-                <p>
-                  Today, I operate in the shadows of the digital world, crafting solutions 
-                  that are as elegant as they are powerful, as fast as they are secure.
-                </p>
+        {/* Split Layout */}
+        <div className="grid lg:grid-cols-5 gap-16 items-start">
+          {/* Left — Photo */}
+          <FadeInUp className="lg:col-span-2" delay={0.1}>
+            <div className="relative">
+              <div className="glass-card overflow-hidden p-2">
+                <img
+                  src={profileImage}
+                  alt="Krish Kumar"
+                  className="w-full rounded-xl object-cover aspect-[3/4]"
+                  loading="lazy"
+                />
               </div>
-              
-              <div className="pt-4 border-t border-neon-cyan/20">
-                <div className="flex items-center gap-4 text-sm">
-                  <span className="text-neon-green">Status:</span>
-                  <span className="text-white">Tech Expert</span>
-                  <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
+              {/* Accent glow */}
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-accent/10 rounded-full blur-[60px] pointer-events-none" />
+            </div>
+          </FadeInUp>
+
+          {/* Right — Story */}
+          <FadeInUp className="lg:col-span-3 space-y-8" delay={0.2}>
+            <div className="space-y-6 text-body text-text-secondary">
+              <p>
+                I'm an engineer who builds things from scratch. From AI platforms that help parents
+                understand child development, to LLM-powered tools that optimize database queries —
+                I'm driven by the intersection of{' '}
+                <span className="text-text-primary font-medium">artificial intelligence</span>,{' '}
+                <span className="text-text-primary font-medium">software engineering</span>, and{' '}
+                <span className="text-text-primary font-medium">real-world impact</span>.
+              </p>
+
+              <p>
+                I think like a founder. Every project starts with a problem worth solving,
+                and I won't stop until the solution is shipped, tested, and in the hands of users.
+                Winning Red Bull Basement validated that approach — building something that matters,
+                under pressure, with a team that cares.
+              </p>
+
+              <p>
+                Currently studying at SRM University with an Academic Excellence Award
+                and a Performance Scholarship. Beyond code, I'm fascinated by astronomy, 
+                startup culture, and the future of AI. I believe the best products come from 
+                people who are deeply curious and relentlessly focused on craft.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              {['AI/ML', 'Full-Stack', 'Mobile', 'Cloud', 'Startups', 'Astronomy'].map((tag) => (
+                <motion.span
+                  key={tag}
+                  className="glass-tag"
+                  whileHover={{ y: -2 }}
+                >
+                  {tag}
+                </motion.span>
+              ))}
+            </div>
+          </FadeInUp>
+        </div>
+
+        {/* Achievements Spotlight */}
+        <div className="space-y-12">
+          <ScrollReveal className="text-center space-y-4">
+            <div className="text-accent text-small font-medium tracking-widest uppercase">
+              Achievements
+            </div>
+            <h2 className="text-section text-text-primary">
+              Built to compete, built to win
+            </h2>
+          </ScrollReveal>
+
+          {/* Featured — Red Bull */}
+          <FadeInUp>
+            <div className="glass-card overflow-hidden animated-border">
+              <div className="grid md:grid-cols-2 gap-0">
+                <div className="p-8 lg:p-10 flex flex-col justify-center space-y-4">
+                  <div className="flex items-center gap-3">
+                    <Trophy />
+                    <span className="text-accent text-small font-medium">2024 · National Winner</span>
+                  </div>
+                  <h3 className="text-2xl lg:text-3xl font-bold text-text-primary">
+                    Red Bull Basement
+                  </h3>
+                  <p className="text-text-secondary text-body leading-relaxed">
+                    Won the national Red Bull Basement hackathon — a global competition challenging
+                    students to build innovative tech solutions that create positive impact. Built and
+                    pitched a product under intense time pressure, competing against top teams nationwide.
+                  </p>
+                </div>
+                <div className="p-8 lg:p-10 bg-gradient-to-br from-accent/[0.04] to-transparent flex items-center justify-center">
+                  <motion.div
+                    className="text-center space-y-4"
+                    animate={{ y: [-4, 4, -4] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    <div className="relative inline-block">
+                      <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center">
+                        <div className="trophy" style={{ transform: 'scale(1.5)' }}>
+                          <div className="trophy-body" />
+                        </div>
+                      </div>
+                      <div className="absolute -top-2 -right-2 w-6 h-6 bg-success rounded-full flex items-center justify-center">
+                        <span className="text-primary text-xs font-bold">✓</span>
+                      </div>
+                    </div>
+                    <div className="text-text-tertiary text-xs uppercase tracking-wider">
+                      International Hackathon
+                    </div>
+                  </motion.div>
                 </div>
               </div>
-            </TechCard>
-          </SlideInFromLeft>
-
-          <SlideInFromRight>
-            <div className="space-y-6">
-              <h3 className="text-2xl font-racing text-neon-cyan">CORE VALUES</h3>
-              
-              <div className="grid grid-cols-2 gap-4">
-                {values.map((value, index) => (
-                  <ScaleOnHover key={index}>
-                    <F1Card className="text-center space-y-3 team-redbull">
-                      <div className="text-3xl">{value.icon}</div>
-                      <h4 className="font-racing text-f1-orange">{value.title}</h4>
-                      <p className="text-sm text-gray-400">{value.description}</p>
-                    </F1Card>
-                  </ScaleOnHover>
-                ))}
-              </div>
             </div>
-          </SlideInFromRight>
-        </div>
-
-        {/* Timeline Section */}
-        <div className="space-y-8">
-          <FadeInUp>
-            <h2 className="text-4xl font-racing text-center text-transparent bg-clip-text bg-gradient-to-r from-f1-red to-neon-cyan">
-              RACING TIMELINE
-            </h2>
           </FadeInUp>
 
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-f1-red via-f1-orange to-neon-cyan"></div>
-            
-            <div className="space-y-12">
-              {timeline.map((item, index) => (
-                <motion.div
-                  key={index}
-                  className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} gap-8`}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.2 }}
-                  onMouseEnter={() => setActiveTimeline(index)}
-                >
-                  <div className={`flex-1 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                    <F1Card className={`inline-block max-w-md cursor-pointer ${
-                      activeTimeline === index ? 'scale-105 shadow-2xl' : ''
-                    } transition-all duration-300`}>
-                      <div className="space-y-3">
-                        <div className={`text-2xl font-racing bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}>
-                          {item.year}
-                        </div>
-                        <h3 className="text-xl font-racing text-white">{item.title}</h3>
-                        <p className="text-gray-400">{item.description}</p>
-                      </div>
-                    </F1Card>
+          {/* Other achievements grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {achievements.filter(a => !a.highlight).map((item, index) => (
+              <FadeInUp key={item.title} delay={index * 0.08}>
+                <GlassCard className="p-6 h-full space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Trophy />
+                    <span className="text-accent text-xs font-medium">{item.year}</span>
                   </div>
-
-                  {/* Timeline Node */}
-                  <div className="relative z-10">
-                    <motion.div
-                      className={`w-16 h-16 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center text-2xl`}
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {item.icon}
-                    </motion.div>
-                  </div>
-
-                  <div className="flex-1"></div>
-                </motion.div>
-              ))}
-            </div>
+                  <h3 className="text-sm font-semibold text-text-primary leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-text-tertiary text-xs leading-relaxed">
+                    {item.description}
+                  </p>
+                </GlassCard>
+              </FadeInUp>
+            ))}
           </div>
         </div>
-
-        {/* Interests & Passions */}
-        <div className="space-y-8">
-          <FadeInUp>
-            <h2 className="text-4xl font-racing text-center text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-green">
-              INTERESTS & PASSIONS
-            </h2>
-          </FadeInUp>
-
-          <StaggeredFadeIn>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {interests.map((interest, index) => (
-                <motion.div
-                  key={index}
-                  className="cursor-pointer"
-                  onClick={() => setSelectedInterest(selectedInterest === index ? null : index)}
-                  whileHover={{ y: -10 }}
-                >
-                  <TechCard className={`h-full transition-all duration-300 ${
-                    selectedInterest === index ? 'border-f1-blue shadow-2xl' : ''
-                  }`}>
-                    <div className="space-y-4">
-                      <div className="text-4xl text-center">{interest.icon}</div>
-                      <h3 className="font-racing text-f1-orange text-center">{interest.title}</h3>
-                      <p className="text-gray-400 text-sm text-center">{interest.description}</p>
-                      
-                      <AnimatePresence>
-                        {selectedInterest === index && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="border-t border-neon-cyan/20 pt-4 space-y-2"
-                          >
-                            <p className="text-xs text-gray-500">{interest.details}</p>
-                            <div className="text-xs text-neon-green font-racing">
-                              {interest.stats}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </TechCard>
-                </motion.div>
-              ))}
-            </div>
-          </StaggeredFadeIn>
-        </div>
-
-        {/* Quote Section */}
-        <FadeInUp>
-          <div className="text-center space-y-6 py-12">
-            <motion.div
-              className="text-3xl lg:text-5xl font-racing text-transparent bg-clip-text bg-gradient-to-r from-f1-red via-f1-orange to-neon-cyan"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              "PRECISION, SPEED, INNOVATION"
-            </motion.div>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              My development philosophy, inspired by the greatest F1 drivers: 
-              Execute with precision, deliver with speed, innovate without limits.
-            </p>
-            <div className="flex justify-center items-center gap-4 text-sm text-neon-cyan">
-              <span>- The Tech Expert</span>
-              <div className="w-8 h-0.5 bg-f1-red"></div>
-              <span>2024</span>
-            </div>
-          </div>
-        </FadeInUp>
       </div>
     </div>
   );

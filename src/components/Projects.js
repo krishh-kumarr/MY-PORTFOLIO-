@@ -1,420 +1,354 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  FadeInUp, 
-  StaggeredFadeIn
-} from '../ui/Animations';
-import { F1Card, TechCard, NeonText } from '../ui/Effects';
-import githubService from '../services/githubService';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ScrollReveal, FadeInUp } from '../ui/Animations';
+import { GlassCard, PhoneMockup, MacBookMockup } from '../ui/Effects';
+import { LampContainer } from '../ui/lamp';
+import { IpadScroll } from '../ui/IpadScroll';
 
-const Projects = () => {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [githubStats, setGithubStats] = useState(null);
+const projects = [
+  {
+    id: 'sql-optimizer',
+    title: 'LLM-Powered SQL Optimization',
+    tagline: 'Intelligent Query Analysis & Performance Tuning',
+    description:
+      'An enterprise-grade tool that leverages Large Language Models to analyze SQL queries, detect performance bottlenecks, and generate optimized alternatives with detailed explanations.',
+    problem: 'Database performance tuning requires deep expertise. Most developers write inefficient queries that slow down applications as data scales.',
+    solution: 'Built an LLM-powered pipeline that takes raw SQL, analyzes execution patterns, identifies anti-patterns, and generates optimized queries with performance benchmarks.',
+    techStack: ['Python', 'LangChain', 'OpenAI', 'PostgreSQL', 'FastAPI', 'React'],
+    impact: 'Reduces average query execution time by 40-60%. Provides natural language explanations of optimization strategies.',
+    link: 'https://github.com/krishh-kumarr/v7-sql-nlp',
+    linkLabel: 'View on GitHub',
+    layout: 'code',
+  },
+  {
+    id: 'emotion-fitness',
+    title: 'Emotion-Based Fitness Platform',
+    tagline: 'AI Workout Recommendations Based on Your Mood',
+    description:
+      'A smart fitness platform that uses computer vision to detect user emotions in real-time and recommends personalized workout routines tailored to their current emotional state.',
+    problem: 'Traditional fitness apps ignore mental state. Motivation and workout effectiveness are deeply tied to emotional well-being.',
+    solution: 'Integrated real-time facial emotion detection with a curated workout recommendation engine that adapts to how you feel.',
+    techStack: ['Python', 'OpenCV', 'TensorFlow', 'React', 'Flask'],
+    impact: 'Demonstrated that emotion-aware fitness recommendations significantly improve workout adherence and user satisfaction.',
+    link: '#',
+    linkLabel: 'View Project',
+    layout: 'flow',
+  },
+  {
+    id: 'ip-tracker',
+    title: 'IP Tracking Game',
+    tagline: 'Multiplayer Location-Based Strategy Game',
+    description:
+      'A real-time multiplayer game that combines IP-based geolocation with competitive strategy mechanics, creating an engaging experience where geography meets gaming.',
+    problem: 'Most browser-based games lack real-world context. Location-based gaming is dominated by mobile-only experiences.',
+    solution: 'Built a web-based multiplayer system using IP geolocation, real-time socket communication, and competitive game logic.',
+    techStack: ['Node.js', 'Socket.io', 'React', 'Express', 'MongoDB'],
+    impact: 'Full multiplayer infrastructure with real-time state sync, location tracking, and competitive scoring.',
+    link: '#',
+    linkLabel: 'View Project',
+    layout: 'game',
+  },
+];
 
-  useEffect(() => {
-    const loadProjects = async () => {
-      try {
-        // For now, using mock data. Replace with real GitHub API call
-        const repos = githubService.getMockRepositories();
-        setProjects(repos);
-        
-        // Mock GitHub stats
-        setGithubStats({
-          totalRepos: 18,
-          totalStars: 125,
-          totalForks: 41,
-          totalCommits: 837,
-          languages: ['JavaScript', 'Java', 'PHP', 'CSS', 'HTML'],
-          streak: 45
-        });
-      } catch (error) {
-        console.error('Error loading projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProjects();
-  }, []);
-
-  const categories = [
-    { id: 'all', label: 'ALL PROJECTS', icon: '🚀' },
-    { id: 'Web Development', label: 'WEB DEV', icon: '💻' },
-    { id: 'Data Science & AI', label: 'AI/ML', icon: '🤖' },
-    { id: 'Backend Development', label: 'BACKEND', icon: '⚙️' },
-    { id: 'DevOps & Tools', label: 'DEVOPS', icon: '🛠️' }
-  ];
-
-  const filteredProjects = selectedCategory === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === selectedCategory);
-
-  const getLanguageColor = (language) => {
-    const colors = {
-      'JavaScript': 'from-yellow-400 to-yellow-600',
-      'Python': 'from-blue-400 to-blue-600',
-      'Java': 'from-red-400 to-red-600',
-      'PHP': 'from-indigo-400 to-indigo-600',
-      'CSS': 'from-purple-400 to-purple-600',
-      'HTML': 'from-orange-400 to-orange-600',
-      'Shell': 'from-green-400 to-green-600',
-      'Jupyter Notebook': 'from-orange-500 to-orange-700'
-    };
-    return colors[language] || 'from-gray-400 to-gray-600';
-  };
-
-  const getComplexityColor = (complexity) => {
-    const colors = {
-      'Simple': 'text-neon-green',
-      'Medium': 'text-f1-orange',
-      'Complex': 'text-f1-red'
-    };
-    return colors[complexity] || 'text-gray-400';
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <motion.div
-            className="w-16 h-16 border-4 border-f1-red border-t-transparent rounded-full mx-auto"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          />
-          <div className="text-neon-cyan font-racing">Loading projects from GitHub...</div>
-        </div>
-      </div>
-    );
-  }
+const ProjectShowcase = ({ project, index }) => {
+  const isEven = index % 2 === 0;
 
   return (
-    <div className="min-h-screen px-6 lg:px-12 py-12">
-      <div className="max-w-7xl mx-auto space-y-16">
-        
-        {/* Header */}
-        <FadeInUp className="text-center space-y-6">
-          <motion.div
-            className="text-sm font-racing text-neon-cyan tracking-widest"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            {'>'} LOADING PROJECT REPOSITORY...
-          </motion.div>
-          
-          <h1 className="text-5xl lg:text-7xl font-racing font-bold">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-f1-red via-f1-orange to-neon-cyan">
-              PROJECT
-            </span>
-            <br />
-            <span className="text-white">SHOWCASE</span>
-          </h1>
-          
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            A collection of projects built with 
-            <NeonText color="f1-red"> F1-level precision </NeonText> 
-            and 
-            <NeonText color="neon-cyan"> technical innovation</NeonText>. 
-            Each repository tells a story of pushing boundaries.
-          </p>
-        </FadeInUp>
-
-        {/* GitHub Stats Dashboard */}
-        {githubStats && (
-          <FadeInUp delay={0.3}>
-            <TechCard className="p-8" glow>
-              <div className="grid grid-cols-2 lg:grid-cols-6 gap-6 text-center">
-                <div>
-                  <div className="text-3xl font-racing text-f1-red">{githubStats.totalRepos}</div>
-                  <div className="text-sm text-gray-400">Repositories</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-racing text-f1-orange">{githubStats.totalStars}</div>
-                  <div className="text-sm text-gray-400">Stars</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-racing text-neon-cyan">{githubStats.totalForks}</div>
-                  <div className="text-sm text-gray-400">Forks</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-racing text-neon-green">{githubStats.totalCommits}</div>
-                  <div className="text-sm text-gray-400">Commits</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-racing text-f1-purple">{githubStats.languages.length}</div>
-                  <div className="text-sm text-gray-400">Languages</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-racing text-f1-blue">{githubStats.streak}</div>
-                  <div className="text-sm text-gray-400">Day Streak</div>
-                </div>
-              </div>
-            </TechCard>
-          </FadeInUp>
-        )}
-
-        {/* Category Filter */}
-        <FadeInUp delay={0.4}>
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
-              <motion.button
-                key={category.id}
-                className={`px-6 py-3 rounded-lg font-racing text-sm transition-all duration-300 ${
-                  selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-f1-red to-f1-orange text-white shadow-lg'
-                    : 'border border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-bat-black'
-                }`}
-                onClick={() => setSelectedCategory(category.id)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="flex items-center gap-2">
-                  {category.icon} {category.label}
-                </span>
-              </motion.button>
-            ))}
+    <FadeInUp delay={0.1}>
+      <div className="glass-card overflow-hidden">
+        <div className={`grid lg:grid-cols-2 gap-0 ${!isEven ? 'lg:direction-rtl' : ''}`}>
+          {/* Visual Side */}
+          <div className={`relative p-8 lg:p-12 flex items-center justify-center bg-gradient-to-br from-accent/[0.03] to-transparent min-h-[360px] ${!isEven ? 'lg:order-2' : ''}`}>
+            {project.layout === 'phone' && <PhoneVisual />}
+            {project.layout === 'code' && <CodeVisual />}
+            {project.layout === 'flow' && <FlowVisual />}
+            {project.layout === 'game' && <GameVisual />}
+            {/* Subtle glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-accent/[0.06] rounded-full blur-[80px] pointer-events-none" />
           </div>
-        </FadeInUp>
 
-        {/* Projects Grid */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedCategory}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.5 }}
-          >
-            <StaggeredFadeIn>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredProjects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    className="cursor-pointer"
-                    onClick={() => setSelectedProject(project)}
-                    whileHover={{ y: -10 }}
-                    layoutId={`project-${project.id}`}
-                  >
-                    <F1Card className="h-full space-y-4 team-redbull relative overflow-hidden">
-                      {/* Status Indicators */}
-                      <div className="flex justify-between items-start">
-                        <div className="flex gap-2">
-                          {project.isActive && (
-                            <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                          )}
-                          <span className={`text-xs font-racing ${getComplexityColor(project.complexity)}`}>
-                            {project.complexity}
-                          </span>
-                        </div>
-                        <div className="text-xs text-gray-400">
-                          {project.category}
-                        </div>
-                      </div>
-
-                      {/* Project Header */}
-                      <div>
-                        <h3 className="text-xl font-racing text-white mb-2">{project.name}</h3>
-                        <p className="text-sm text-gray-400 line-clamp-3">{project.description}</p>
-                      </div>
-
-                      {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-2">
-                        {project.techStack.map((tech, techIndex) => (
-                          <span
-                            key={techIndex}
-                            className={`px-2 py-1 text-xs bg-gradient-to-r ${getLanguageColor(tech)} text-white rounded`}
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Stats */}
-                      <div className="flex justify-between items-center text-sm">
-                        <div className="flex gap-4">
-                          <span className="flex items-center gap-1 text-f1-orange">
-                            ⭐ {project.stargazers_count}
-                          </span>
-                          <span className="flex items-center gap-1 text-neon-cyan">
-                            🔗 {project.forks_count}
-                          </span>
-                        </div>
-                        <span className="text-gray-400">
-                          {new Date(project.updated_at).toLocaleDateString()}
-                        </span>
-                      </div>
-
-                      {/* Hover Effect */}
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-f1-red/10 to-f1-orange/10 opacity-0"
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </F1Card>
-                  </motion.div>
-                ))}
+          {/* Content Side */}
+          <div className={`p-8 lg:p-12 flex flex-col justify-center space-y-6 ${!isEven ? 'lg:order-1' : ''}`}>
+            <div className="space-y-3">
+              <div className="text-accent text-small font-medium tracking-wider uppercase">
+                {project.tagline}
               </div>
-            </StaggeredFadeIn>
-          </motion.div>
-        </AnimatePresence>
+              <h3 className="text-3xl lg:text-4xl font-bold text-text-primary tracking-tight">
+                {project.title}
+              </h3>
+              <p className="text-text-secondary text-body leading-relaxed">
+                {project.description}
+              </p>
+            </div>
 
-        {/* Project Modal */}
-        <AnimatePresence>
-          {selectedProject && (
-            <motion.div
-              className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-            >
-              <motion.div
-                className="bg-bat-gray rounded-lg p-8 max-w-4xl w-full max-h-[80vh] overflow-y-auto"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                onClick={(e) => e.stopPropagation()}
-                layoutId={`project-${selectedProject.id}`}
-              >
-                <div className="space-y-6">
-                  {/* Header */}
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h2 className="text-3xl font-racing text-white mb-2">{selectedProject.name}</h2>
-                      <p className="text-gray-400">{selectedProject.description}</p>
-                    </div>
-                    <button
-                      className="text-neon-cyan hover:text-white text-2xl"
-                      onClick={() => setSelectedProject(null)}
-                    >
-                      ×
-                    </button>
-                  </div>
+            {/* Problem / Solution */}
+            <div className="space-y-4">
+              <div className="glass-card-strong p-5 rounded-xl">
+                <div className="text-xs font-semibold text-accent uppercase tracking-wider mb-2">Problem</div>
+                <p className="text-text-secondary text-small">{project.problem}</p>
+              </div>
+              <div className="glass-card-strong p-5 rounded-xl">
+                <div className="text-xs font-semibold text-success uppercase tracking-wider mb-2">Solution</div>
+                <p className="text-text-secondary text-small">{project.solution}</p>
+              </div>
+            </div>
 
-                  {/* Project Details */}
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-4">
-                      <h3 className="text-xl font-racing text-f1-orange">Project Details</h3>
-                      
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-gray-400">Language:</span>
-                          <span className="text-white">{selectedProject.primaryLanguage}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-400">Category:</span>
-                          <span className="text-white">{selectedProject.category}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-400">Complexity:</span>
-                          <span className={getComplexityColor(selectedProject.complexity)}>
-                            {selectedProject.complexity}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-400">Status:</span>
-                          <span className={selectedProject.isActive ? 'text-neon-green' : 'text-gray-400'}>
-                            {selectedProject.isActive ? 'Active' : 'Archived'}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <h4 className="text-lg font-racing text-neon-cyan">Tech Stack</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedProject.techStack.map((tech, index) => (
-                            <span
-                              key={index}
-                              className={`px-3 py-1 text-sm bg-gradient-to-r ${getLanguageColor(tech)} text-white rounded-lg`}
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <h3 className="text-xl font-racing text-f1-orange">Repository Stats</h3>
-                      
-                      <div className="grid grid-cols-2 gap-4 text-center">
-                        <div className="bg-bat-black p-4 rounded-lg">
-                          <div className="text-2xl font-racing text-bat-blue">{selectedProject.stargazers_count}</div>
-                          <div className="text-sm text-gray-400">Stars</div>
-                        </div>
-                        <div className="bg-bat-black p-4 rounded-lg">
-                          <div className="text-2xl font-racing text-neon-cyan">{selectedProject.forks_count}</div>
-                          <div className="text-sm text-gray-400">Forks</div>
-                        </div>
-                        <div className="bg-bat-black p-4 rounded-lg">
-                          <div className="text-2xl font-racing text-f1-blue">{selectedProject.watchers_count}</div>
-                          <div className="text-sm text-gray-400">Watchers</div>
-                        </div>
-                        <div className="bg-bat-black p-4 rounded-lg">
-                          <div className="text-2xl font-racing text-neon-cyan">
-                            {selectedProject.recentCommits}
-                          </div>
-                          <div className="text-sm text-gray-400">Recent Commits</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex gap-4 pt-6 border-t border-gray-700">
-                    <motion.a
-                      href={selectedProject.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="f1-button rounded-lg px-6 py-3 flex-1 text-center"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      VIEW ON GITHUB
-                    </motion.a>
-                    <motion.button
-                      className="px-6 py-3 border-2 border-neon-cyan text-neon-cyan rounded-lg font-racing hover:bg-neon-cyan hover:text-bat-black transition-all duration-300 flex-1"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      LIVE DEMO
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Featured Technologies */}
-        <FadeInUp>
-          <div className="text-center space-y-8">
-            <h2 className="text-4xl font-racing text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-green">
-              FEATURED TECHNOLOGIES
-            </h2>
-            
-            <div className="flex flex-wrap justify-center gap-6">
-              {githubStats?.languages.map((language, index) => (
-                <motion.div
-                  key={language}
-                  className={`px-6 py-3 bg-gradient-to-r ${getLanguageColor(language)} text-white rounded-lg font-racing`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
-                  {language}
-                </motion.div>
+            {/* Tech Stack */}
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <span key={tech} className="glass-tag text-xs">
+                  {tech}
+                </span>
               ))}
             </div>
+
+            {/* Impact */}
+            <p className="text-text-tertiary text-small italic">
+              {project.impact}
+            </p>
+
+            {/* CTA */}
+            {project.link !== '#' && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary inline-flex self-start"
+              >
+                {project.linkLabel}
+                <span className="ml-2">→</span>
+              </a>
+            )}
           </div>
-        </FadeInUp>
+        </div>
       </div>
-    </div>
+    </FadeInUp>
   );
 };
+
+/* --- Visual Components --- */
+
+const PhoneVisual = () => (
+  <div className="relative">
+    <motion.div
+      animate={{ y: [-6, 6, -6] }}
+      transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <PhoneMockup className="w-[160px] shadow-glass-lg">
+        <div className="bg-[#0D1117] aspect-[9/16] p-4 flex flex-col">
+          {/* App Header */}
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-accent-hover flex items-center justify-center">
+              <span className="text-primary text-[10px] font-bold">PB</span>
+            </div>
+            <div>
+              <div className="text-[9px] text-text-primary font-medium">ParentBud</div>
+              <div className="text-[7px] text-text-tertiary">Dashboard</div>
+            </div>
+          </div>
+          {/* Mock Cards */}
+          <div className="space-y-2 flex-1">
+            <div className="bg-accent/10 rounded-lg p-2">
+              <div className="text-[7px] text-accent font-medium">Milestone</div>
+              <div className="text-[8px] text-text-primary mt-0.5">First Words</div>
+              <div className="h-1 bg-accent/20 rounded-full mt-1">
+                <div className="h-full bg-accent rounded-full w-3/4" />
+              </div>
+            </div>
+            <div className="bg-white/[0.03] rounded-lg p-2">
+              <div className="text-[7px] text-success font-medium">Growth</div>
+              <div className="text-[8px] text-text-primary mt-0.5">On Track</div>
+              <div className="flex gap-0.5 mt-1">
+                {[40, 60, 45, 70, 55, 80, 65].map((h, i) => (
+                  <div key={i} className="flex-1 bg-success/20 rounded-sm" style={{ height: `${h * 0.3}px` }}>
+                    <div className="bg-success/40 rounded-sm w-full" style={{ height: `${h * 0.2}px`, marginTop: 'auto' }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-white/[0.03] rounded-lg p-2">
+              <div className="text-[7px] text-text-tertiary font-medium">AI Insight</div>
+              <div className="text-[7px] text-text-secondary mt-0.5 leading-snug">
+                Your child is developing strong motor skills. Consider...
+              </div>
+            </div>
+          </div>
+          {/* Bottom Nav */}
+          <div className="flex justify-around mt-2 pt-2 border-t border-white/[0.05]">
+            {['Home', 'Track', 'AI', 'Profile'].map((tab) => (
+              <div key={tab} className="text-[6px] text-text-tertiary text-center">
+                <div className={`w-3 h-3 rounded-full mx-auto mb-0.5 ${tab === 'Home' ? 'bg-accent/30' : 'bg-white/[0.05]'}`} />
+                {tab}
+              </div>
+            ))}
+          </div>
+        </div>
+      </PhoneMockup>
+    </motion.div>
+  </div>
+);
+
+const CodeVisual = () => (
+  <div className="w-full max-w-sm">
+    <motion.div
+      animate={{ y: [-4, 4, -4] }}
+      transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <MacBookMockup className="shadow-glass-lg">
+        <div className="bg-[#0D1117] p-4 font-mono text-[10px] leading-relaxed">
+          <div className="text-text-tertiary mb-2">-- Slow query (before optimization)</div>
+          <div className="text-[#FF7B72]">SELECT</div>
+          <div className="pl-3 text-text-primary">u.name, COUNT(o.id)</div>
+          <div className="text-[#FF7B72]">FROM</div>
+          <div className="pl-3 text-text-primary">users u, orders o</div>
+          <div className="text-[#FF7B72]">WHERE</div>
+          <div className="pl-3 text-text-primary">u.id = o.user_id</div>
+          <div className="text-text-tertiary mt-3">⏱ Execution: 3.2s</div>
+          <div className="section-divider my-3" />
+          <div className="text-success mb-2">-- LLM Optimized ✓</div>
+          <div className="text-[#FF7B72]">SELECT</div>
+          <div className="pl-3 text-text-primary">u.name, COUNT(o.id)</div>
+          <div className="text-[#FF7B72]">FROM</div>
+          <div className="pl-3 text-text-primary">users u</div>
+          <div className="text-[#79C0FF]">INNER JOIN</div>
+          <div className="pl-3 text-text-primary">orders o ON u.id = o.user_id</div>
+          <div className="text-[#FF7B72]">GROUP BY</div>
+          <div className="pl-3 text-text-primary">u.name</div>
+          <div className="text-success mt-3">⚡ Execution: 0.4s (87% faster)</div>
+        </div>
+      </MacBookMockup>
+    </motion.div>
+    {/* Flow diagram below */}
+    <div className="flex items-center justify-center gap-2 mt-6">
+      {['Input SQL', 'LLM Analysis', 'Optimization', 'Output'].map((step, i) => (
+        <React.Fragment key={step}>
+          <div className="glass-tag text-[10px] px-3 py-1.5">{step}</div>
+          {i < 3 && <span className="text-accent text-xs">→</span>}
+        </React.Fragment>
+      ))}
+    </div>
+  </div>
+);
+
+const FlowVisual = () => (
+  <div className="flex flex-col items-center gap-4 w-full max-w-xs">
+    {[
+      { label: 'Camera Detection', color: 'accent', desc: 'Real-time facial analysis' },
+      { label: 'Emotion Analysis', color: 'accent-hover', desc: 'AI mood classification' },
+      { label: 'Workout Match', color: 'success', desc: 'Personalized routine' },
+    ].map((step, i) => (
+      <React.Fragment key={step.label}>
+        <motion.div
+          animate={{ y: [-3, 3, -3] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 }}
+          className="w-full"
+        >
+          <GlassCard className="p-5 text-center animated-border">
+            <div className="text-sm font-semibold text-text-primary">{step.label}</div>
+            <div className="text-xs text-text-tertiary mt-1">{step.desc}</div>
+          </GlassCard>
+        </motion.div>
+        {i < 2 && (
+          <div className="w-px h-6 bg-gradient-to-b from-accent/30 to-transparent" />
+        )}
+      </React.Fragment>
+    ))}
+  </div>
+);
+
+const GameVisual = () => (
+  <div className="w-full max-w-xs">
+    <motion.div
+      animate={{ y: [-5, 5, -5] }}
+      transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <GlassCard className="p-6 space-y-4 animated-border">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-semibold text-text-primary">Live Match</span>
+          <span className="text-xs text-success flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 bg-success rounded-full animate-pulse" />
+            Online
+          </span>
+        </div>
+        <div className="space-y-3">
+          {[
+            { name: 'Player 1', score: 2450, position: 'Mumbai, IN' },
+            { name: 'Player 2', score: 2120, position: 'Delhi, IN' },
+            { name: 'Player 3', score: 1890, position: 'Bangalore, IN' },
+          ].map((player, i) => (
+            <div key={player.name} className="flex items-center justify-between bg-white/[0.02] rounded-lg p-3">
+              <div className="flex items-center gap-3">
+                <span className={`text-xs font-bold ${i === 0 ? 'text-accent' : 'text-text-tertiary'}`}>
+                  #{i + 1}
+                </span>
+                <div>
+                  <div className="text-xs font-medium text-text-primary">{player.name}</div>
+                  <div className="text-[10px] text-text-tertiary">{player.position}</div>
+                </div>
+              </div>
+              <span className="text-xs font-semibold text-text-secondary">{player.score}</span>
+            </div>
+          ))}
+        </div>
+        <div className="text-center text-[10px] text-text-tertiary">
+          Real-time multiplayer · IP Geolocation · Socket.io
+        </div>
+      </GlassCard>
+    </motion.div>
+  </div>
+);
+
+const Projects = () => (
+  <div className="py-32 px-6 lg:px-12">
+    <div className="max-w-6xl mx-auto space-y-20">
+      {/* Section Header */}
+      <LampContainer>
+        <ScrollReveal className="text-center space-y-4">
+          <div className="text-accent text-small font-medium tracking-widest uppercase">
+            Projects
+          </div>
+          <h2 className="text-section text-text-primary">
+            Shipped products, not side projects
+          </h2>
+          <p className="text-text-secondary text-body max-w-2xl mx-auto">
+            Each project is a case study in solving real problems — from AI-powered platforms on the App Store
+            to developer tools that make databases faster.
+          </p>
+        </ScrollReveal>
+      </LampContainer>
+
+      {/* ParentBud iPad Featured Animation */}
+      <IpadScroll
+        titleComponent={
+          <>
+            <h1 className="text-3xl md:text-5xl font-semibold text-text-primary">
+              Featured Product <br />
+              <span className="text-5xl md:text-[6rem] font-bold mt-2 leading-none text-accent block">
+                ParentBud
+              </span>
+            </h1>
+            <p className="text-text-secondary mt-4 max-w-xl mx-auto">
+              A comprehensive parenting companion that uses AI to track milestones and connect parents with expert guidance — live on the App Store.
+            </p>
+          </>
+        }
+        images={[
+          '/pb1.png',
+          '/pb2.png',
+          '/pb3.png',
+          '/pb4.png',
+          '/pb5.png'
+        ]}
+      />
+
+      {/* Project Showcases */}
+      <div className="space-y-12">
+        {projects.map((project, index) => (
+          <ProjectShowcase key={project.id} project={project} index={index} />
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 export default Projects;
