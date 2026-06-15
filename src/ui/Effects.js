@@ -1,4 +1,6 @@
 import React, { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import LiquidGlass from 'liquid-glass-react';
 
 export const DotGrid = () => (
   <div className="fixed inset-0 dot-grid pointer-events-none z-0" aria-hidden="true" />
@@ -124,14 +126,86 @@ export const NoiseTexture = () => (
   <div className="noise-overlay" aria-hidden="true" />
 );
 
-export const GlassCard = ({ children, className = '', hover = true, ...props }) => (
-  <div
-    className={`${hover ? 'glass-card' : 'glass-card-strong'} ${className}`}
-    {...props}
-  >
-    {children}
-  </div>
-);
+export const GlassCard = ({ children, className = '', hover = true, ...props }) => {
+  const containerRef = useRef(null);
+  return (
+    <motion.div
+      ref={containerRef}
+      className={`glass-card relative p-6 rounded-2xl overflow-hidden ${className}`}
+      {...props}
+    >
+      {/* Background Liquid Glass */}
+      <div className="absolute inset-0 z-0 pointer-events-none rounded-2xl overflow-hidden">
+        <LiquidGlass
+          displacementScale={hover ? 16 : 4}
+          blurAmount={0.08}
+          saturation={140}
+          aberrationIntensity={1.2}
+          elasticity={0.15}
+          cornerRadius={16}
+          padding="0px"
+          mouseContainer={containerRef}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '100%',
+            height: '100%'
+          }}
+        />
+      </div>
+      {/* Foreground Content */}
+      <div className="relative z-10 w-full h-full text-text-primary text-left">
+        {children}
+      </div>
+    </motion.div>
+  );
+};
+
+export const GlassButton = ({ children, className = '', onClick, variant = 'primary', disabled = false, type = 'button', href, download, ...props }) => {
+  const btnRef = useRef(null);
+  const Tag = href ? 'a' : 'button';
+
+  return (
+    <Tag
+      ref={btnRef}
+      href={href}
+      download={download}
+      type={href ? undefined : type}
+      disabled={href ? undefined : disabled}
+      onClick={onClick}
+      className={`glass-btn-${variant} relative inline-flex items-center justify-center px-8 py-3.5 rounded-full overflow-hidden text-sm font-semibold tracking-tight transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent/40 ${disabled ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'} ${className}`}
+      style={{ textDecoration: 'none' }}
+      {...props}
+    >
+      {/* Background Liquid Glass */}
+      <div className="absolute inset-0 z-0 pointer-events-none rounded-full overflow-hidden">
+        <LiquidGlass
+          displacementScale={disabled ? 0 : 12}
+          blurAmount={0.05}
+          saturation={150}
+          aberrationIntensity={1.2}
+          elasticity={disabled ? 0 : 0.15}
+          cornerRadius={999}
+          padding="0px"
+          mouseContainer={btnRef}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '100%',
+            height: '100%'
+          }}
+        />
+      </div>
+
+      {/* Foreground Text */}
+      <span className={`relative z-10 ${variant === 'primary' ? 'text-white' : 'text-text-secondary hover:text-text-primary transition-colors'}`}>
+        {children}
+      </span>
+    </Tag>
+  );
+};
 
 export const SectionDivider = () => (
   <div className="section-divider" />

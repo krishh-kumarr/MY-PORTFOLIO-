@@ -7,7 +7,7 @@ export const FloatingDock = ({ items, className }) => {
 
   return (
     <div className={`flex items-center justify-center ${className}`}>
-      <motion.div 
+      <motion.div
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         className="flex items-end gap-3 p-3 bg-[#0D1117]/80 backdrop-blur-2xl border border-white/10 rounded-2xl mx-auto shadow-2xl"
@@ -62,7 +62,7 @@ const DockIcon = ({ mouseX, item }) => {
         </div>
       </motion.div>
       {item.active && (
-         <div className="absolute -bottom-1 w-1 h-1 rounded-full bg-accent shadow-[0_0_8px_rgba(78,161,255,0.8)]" />
+        <div className="absolute -bottom-1 w-1 h-1 rounded-full bg-accent shadow-[0_0_8px_rgba(78,161,255,0.8)]" />
       )}
     </div>
   );

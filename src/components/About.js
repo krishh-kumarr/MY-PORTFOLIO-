@@ -89,8 +89,8 @@ const About = () => {
 
               <p>
                 Currently studying at SRM University with an Academic Excellence Award
-                and a Performance Scholarship. Beyond code, I'm fascinated by astronomy, 
-                startup culture, and the future of AI. I believe the best products come from 
+                and a Performance Scholarship. Beyond code, I'm fascinated by astronomy,
+                startup culture, and the future of AI. I believe the best products come from
                 people who are deeply curious and relentlessly focused on craft.
               </p>
             </div>
@@ -133,9 +133,7 @@ const About = () => {
                     Red Bull Basement
                   </h3>
                   <p className="text-text-secondary text-body leading-relaxed">
-                    Won the national Red Bull Basement hackathon — a global competition challenging
-                    students to build innovative tech solutions that create positive impact. Built and
-                    pitched a product under intense time pressure, competing against top teams nationwide.
+                    Won the Red Bull Basement hackathon organized by Cherry+Network at SRM Institute of Science and Technology. Built and pitched a product under intense time pressure, competing against top teams.
                   </p>
                 </div>
                 <div className="p-8 lg:p-10 bg-gradient-to-br from-accent/[0.04] to-transparent flex items-center justify-center">

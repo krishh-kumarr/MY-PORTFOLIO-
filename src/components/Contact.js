@@ -136,10 +136,10 @@ const Contact = () => {
                   {status === 'sending'
                     ? 'Sending...'
                     : status === 'sent'
-                    ? 'Sent Successfully!'
-                    : status === 'error'
-                    ? 'Failed — Try Again'
-                    : 'Send Message'}
+                      ? 'Sent Successfully!'
+                      : status === 'error'
+                        ? 'Failed — Try Again'
+                        : 'Send Message'}
                 </button>
 
                 {status === 'sent' && (

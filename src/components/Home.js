@@ -21,10 +21,6 @@ const Home = () => {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="space-y-6"
             >
-              <div className="text-accent text-small font-medium tracking-widest uppercase">
-                Portfolio 2025
-              </div>
-
               <h1 className="text-hero">
                 <span className="text-text-primary">Krish Kumar</span>
               </h1>

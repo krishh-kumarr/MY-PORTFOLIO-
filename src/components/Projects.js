@@ -4,6 +4,7 @@ import { ScrollReveal, FadeInUp } from '../ui/Animations';
 import { GlassCard, PhoneMockup, MacBookMockup } from '../ui/Effects';
 import { LampContainer } from '../ui/lamp';
 import { IpadScroll } from '../ui/IpadScroll';
+import { MacbookScroll } from '../ui/MacbookScroll';
 
 const projects = [
   {
@@ -19,20 +20,6 @@ const projects = [
     link: 'https://github.com/krishh-kumarr/v7-sql-nlp',
     linkLabel: 'View on GitHub',
     layout: 'code',
-  },
-  {
-    id: 'emotion-fitness',
-    title: 'Emotion-Based Fitness Platform',
-    tagline: 'AI Workout Recommendations Based on Your Mood',
-    description:
-      'A smart fitness platform that uses computer vision to detect user emotions in real-time and recommends personalized workout routines tailored to their current emotional state.',
-    problem: 'Traditional fitness apps ignore mental state. Motivation and workout effectiveness are deeply tied to emotional well-being.',
-    solution: 'Integrated real-time facial emotion detection with a curated workout recommendation engine that adapts to how you feel.',
-    techStack: ['Python', 'OpenCV', 'TensorFlow', 'React', 'Flask'],
-    impact: 'Demonstrated that emotion-aware fitness recommendations significantly improve workout adherence and user satisfaction.',
-    link: '#',
-    linkLabel: 'View Project',
-    layout: 'flow',
   },
   {
     id: 'ip-tracker',
@@ -61,7 +48,6 @@ const ProjectShowcase = ({ project, index }) => {
           <div className={`relative p-8 lg:p-12 flex items-center justify-center bg-gradient-to-br from-accent/[0.03] to-transparent min-h-[360px] ${!isEven ? 'lg:order-2' : ''}`}>
             {project.layout === 'phone' && <PhoneVisual />}
             {project.layout === 'code' && <CodeVisual />}
-            {project.layout === 'flow' && <FlowVisual />}
             {project.layout === 'game' && <GameVisual />}
             {/* Subtle glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-accent/[0.06] rounded-full blur-[80px] pointer-events-none" />
@@ -230,31 +216,7 @@ const CodeVisual = () => (
   </div>
 );
 
-const FlowVisual = () => (
-  <div className="flex flex-col items-center gap-4 w-full max-w-xs">
-    {[
-      { label: 'Camera Detection', color: 'accent', desc: 'Real-time facial analysis' },
-      { label: 'Emotion Analysis', color: 'accent-hover', desc: 'AI mood classification' },
-      { label: 'Workout Match', color: 'success', desc: 'Personalized routine' },
-    ].map((step, i) => (
-      <React.Fragment key={step.label}>
-        <motion.div
-          animate={{ y: [-3, 3, -3] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: i * 0.5 }}
-          className="w-full"
-        >
-          <GlassCard className="p-5 text-center animated-border">
-            <div className="text-sm font-semibold text-text-primary">{step.label}</div>
-            <div className="text-xs text-text-tertiary mt-1">{step.desc}</div>
-          </GlassCard>
-        </motion.div>
-        {i < 2 && (
-          <div className="w-px h-6 bg-gradient-to-b from-accent/30 to-transparent" />
-        )}
-      </React.Fragment>
-    ))}
-  </div>
-);
+
 
 const GameVisual = () => (
   <div className="w-full max-w-xs">
@@ -338,6 +300,29 @@ const Projects = () => (
           '/pb3.png',
           '/pb4.png',
           '/pb5.png'
+        ]}
+      />
+
+      {/* Vibeout Macbook Featured Animation */}
+      <MacbookScroll
+        titleComponent={
+          <>
+            <h1 className="text-3xl md:text-5xl font-semibold text-text-primary">
+              Hardware & Systems <br />
+              <span className="text-5xl md:text-[6rem] font-bold mt-2 leading-none text-success block">
+                Vibeout
+              </span>
+            </h1>
+            <p className="text-text-secondary mt-4 max-w-xl mx-auto">
+              Emotion-Based Fitness Platform powered by IoT hardware integration and a robust system architecture.
+            </p>
+          </>
+        }
+        images={[
+          '/vibeout-setup.png',
+          '/vibeout-architecture.png',
+          '/vibeout-auth.png',
+          '/vibeout-dashboard.png'
         ]}
       />
 

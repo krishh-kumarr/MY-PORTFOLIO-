@@ -3,10 +3,11 @@ import { AnimatePresence } from 'framer-motion';
 import './styles/globals.css';
 import { DotDistortion, MeshGradient, NoiseTexture, Loader, ScrollProgress } from './ui/Effects';
 import { FloatingDock } from './ui/floating-dock';
-import { Home as HomeIcon, User, Folder, Code, Mail } from 'lucide-react';
+import { Home as HomeIcon, User, Folder, Code, Mail, Briefcase } from 'lucide-react';
 
 const Home = lazy(() => import('./components/Home'));
 const About = lazy(() => import('./components/About'));
+const Experience = lazy(() => import('./components/Experience'));
 const Skills = lazy(() => import('./components/Skillset'));
 const Projects = lazy(() => import('./components/Projects'));
 const Contact = lazy(() => import('./components/Contact'));
@@ -22,6 +23,7 @@ const App = () => {
   const navItems = [
     { title: 'Home', icon: <HomeIcon size={20} strokeWidth={2} />, onClick: () => scrollToSection('home'), active: activeSection === 'home' },
     { title: 'About', icon: <User size={20} strokeWidth={2} />, onClick: () => scrollToSection('about'), active: activeSection === 'about' },
+    { title: 'Experience', icon: <Briefcase size={20} strokeWidth={2} />, onClick: () => scrollToSection('experience'), active: activeSection === 'experience' },
     { title: 'Projects', icon: <Folder size={20} strokeWidth={2} />, onClick: () => scrollToSection('projects'), active: activeSection === 'projects' },
     { title: 'Skills', icon: <Code size={20} strokeWidth={2} />, onClick: () => scrollToSection('skills'), active: activeSection === 'skills' },
     { title: 'Contact', icon: <Mail size={20} strokeWidth={2} />, onClick: () => scrollToSection('contact'), active: activeSection === 'contact' },
@@ -104,6 +106,10 @@ const App = () => {
 
           <section id="about" data-section="about">
             <About />
+          </section>
+
+          <section id="experience" data-section="experience">
+            <Experience />
           </section>
 
           <section id="projects" data-section="projects">

@@ -34,7 +34,7 @@ export const IpadScroll = ({ titleComponent, images }) => {
         <div className="max-w-5xl mx-auto text-center z-10 relative mb-12">
           {titleComponent}
         </div>
-        
+
         <motion.div
           style={{
             rotateX: rotate,
@@ -45,10 +45,10 @@ export const IpadScroll = ({ titleComponent, images }) => {
         >
           {/* iPad Camera Hole */}
           <div className="absolute left-4 top-1/2 -translate-y-1/2 w-2 h-2 bg-black rounded-full hidden md:block z-20 shadow-inner"></div>
-          
+
           {/* Screen Content */}
           <div className="w-full h-full bg-[#0D1117] rounded-[1rem] md:rounded-[1.5rem] overflow-hidden relative border border-white/10 flex flex-col justify-center">
-            
+
             {/* Auto Scrolling Marquee */}
             <div className="flex items-center w-full bg-accent/[0.01] overflow-hidden py-4">
               <motion.div
@@ -62,16 +62,16 @@ export const IpadScroll = ({ titleComponent, images }) => {
               >
                 {/* We double the images list for seamless looping */}
                 {[...images, ...images].map((img, idx) => (
-                  <img 
-                    key={idx} 
-                    src={img} 
-                    alt="App screen mockup" 
-                    className="h-[30vh] md:h-[50vh] w-auto object-contain rounded-xl md:rounded-2xl border border-white/10 shadow-2xl" 
+                  <img
+                    key={idx}
+                    src={img}
+                    alt="App screen mockup"
+                    className="h-[30vh] md:h-[50vh] w-auto object-contain rounded-xl md:rounded-2xl border border-white/10 shadow-2xl"
                   />
                 ))}
               </motion.div>
             </div>
-            
+
             {/* Inner Screen Gloss */}
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/[0.03] via-transparent to-transparent mix-blend-overlay z-10"></div>
           </div>
