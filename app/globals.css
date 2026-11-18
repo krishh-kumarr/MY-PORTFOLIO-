@@ -205,3 +205,15 @@ body { background: var(--color-night); color: var(--color-fg); color-scheme: dar
 
 /* Footer crowd: the friends illustration as ink line art, fading into the page */
 .footer-crowd { filter: grayscale(1) contrast(1.15); }
+
+/* Footer passers-by */
+@keyframes pb-walk-r { from { left: -10%; } to { left: 105%; } }
+@keyframes pb-walk-l { from { left: 105%; } to { left: -10%; } }
+@keyframes pb-swing { 0%, 100% { transform: rotate(16deg); } 50% { transform: rotate(-16deg); } }
+@keyframes pb-step { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+.pb-walker { animation: pb-walk-r linear infinite; }
+.pb-walker[style*="--dir: -1"] { animation-name: pb-walk-l; }
+.pb-bob { animation: pb-step .5s ease-in-out infinite; }
+.pb-leg-a, .pb-arm-b { animation: pb-swing 1s ease-in-out infinite; }
+.pb-leg-b, .pb-arm-a { animation: pb-swing 1s ease-in-out infinite reverse; }
+@media (prefers-reduced-motion: reduce) { .pb-walker, .pb-bob, .pb-leg-a, .pb-leg-b, .pb-arm-a, .pb-arm-b { animation: none; } }

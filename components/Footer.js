@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { links } from '@/lib/data';
+import Passersby from './Passersby';
 
 /** Sign-off: links, then the crew illustration with the avatar, and the name set large underneath. */
 export default function Footer() {
@@ -23,15 +24,11 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-5 mt-12">
-        <div className="relative rounded-3xl border border-line overflow-hidden">
-          <Image src="/art/crew-selfie.webp" alt="Illustration of Krish’s friends" width={1024} height={768} sizes="(min-width: 1152px) 1100px, 95vw" className="w-full h-auto footer-crowd" />
-          <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night/70 via-transparent to-transparent" />
-          <Image src="/avatar/body-front.webp" alt="" width={254} height={898} sizes="140px" className="absolute bottom-0 left-[4%] h-[58%] w-auto drop-shadow-[0_18px_24px_rgba(0,0,0,.5)]" />
-        </div>
+      <div className="relative mt-12 h-[min(46vw,420px)] border-b border-line">
+        <Passersby />
+        <Image src="/avatar/body-front.webp" alt="Krish’s avatar, standing still while everyone walks past" width={254} height={898} sizes="140px" className="absolute z-[2] bottom-0 left-1/2 -translate-x-1/2 h-[92%] w-auto drop-shadow-[0_18px_24px_rgba(0,0,0,.35)]" />
       </div>
-
-      <p aria-hidden="true" className="mx-auto max-w-6xl px-5 -mb-[3.2vw] mt-6 font-display font-extrabold leading-none tracking-tighter text-[19vw] lg:text-[13rem] text-fg/[.07] select-none text-center">KRISH</p>
+      <p aria-hidden="true" className="mx-auto max-w-6xl px-5 -mb-[3.2vw] mt-4 font-display font-extrabold leading-none tracking-tighter text-[19vw] lg:text-[13rem] text-fg/[.07] select-none text-center">KRISH</p>
       <p className="relative border-t border-line px-5 py-4 text-center text-sm text-muted bg-night">© {new Date().getFullYear()} Krish Kumar</p>
     </footer>
   );
