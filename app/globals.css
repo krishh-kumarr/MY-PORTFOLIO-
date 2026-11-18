@@ -64,3 +64,7 @@ body { background: var(--color-paper); color: var(--color-ink); }
 .kite { animation: kite-sway 4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
 .fog { animation: fog-drift 9s ease-in-out infinite; }
 .float-q { animation: q-float 5s ease-in-out infinite; }
+@keyframes twinkle { 0%, 100% { opacity: .9; } 50% { opacity: .25; } }
+@keyframes flutter { 0%, 100% { transform: skewY(0deg) scaleX(1); } 50% { transform: skewY(-6deg) scaleX(.92); } }
+.twinkle { animation: twinkle 3s ease-in-out infinite; }
+.flutter { animation: flutter 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 0 50%; }
