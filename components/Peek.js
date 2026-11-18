@@ -46,7 +46,7 @@ export default function Peek({ watch = 'top', always = false, hideOver }) {
           animate={{ y: 0, opacity: 1 }}
           exit={reduce ? undefined : { y: 140, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-          className="fixed bottom-4 right-4 z-50 flex items-end gap-3 pointer-events-none"
+          className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-50 flex items-end gap-3 pointer-events-none"
         >
           {!quiet && (
             <div className="relative pointer-events-auto hidden sm:block max-w-[260px] mb-6">
@@ -60,7 +60,7 @@ export default function Peek({ watch = 'top', always = false, hideOver }) {
             onPointerEnter={() => react('laughing', say, 0)}
             onPointerLeave={settle}
             aria-label="Show avatar message"
-            className="pointer-events-auto relative size-24 rounded-full bg-sky sticker overflow-hidden"
+            className="pointer-events-auto relative size-14 sm:size-24 rounded-full bg-sky sticker overflow-hidden"
           >
             <AvatarFace mood={mood} sizes="96px" className="absolute inset-x-1 -bottom-1 aspect-[640/700]" />
           </button>

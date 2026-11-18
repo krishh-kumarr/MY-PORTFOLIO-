@@ -73,7 +73,7 @@ export default function StoryPlayer({ onClose, onProjects, inline = false }) {
 
   const c = chapters[i];
   return (
-    <div ref={wrap} {...(inline ? { role: 'region' } : { role: 'dialog', 'aria-modal': 'true' })} aria-label="Krish’s story" className={inline ? 'relative isolate z-0 h-[min(78dvh,720px)] overflow-hidden bg-night text-fg' : 'fixed inset-0 z-[70] bg-night text-fg'}>
+    <div ref={wrap} {...(inline ? { role: 'region' } : { role: 'dialog', 'aria-modal': 'true' })} aria-label="Krish’s story" className={inline ? 'relative isolate z-0 h-[62svh] sm:h-[min(78dvh,720px)] overflow-hidden bg-night text-fg' : 'fixed inset-0 z-[70] bg-night text-fg'}>
       <AnimatePresence mode="sync">
         {phase === 'play' && (
           <motion.div key={`ch-${c.id}`} className="absolute inset-0" initial={{ scale: 1.08, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.96, opacity: 0 }} transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}>
