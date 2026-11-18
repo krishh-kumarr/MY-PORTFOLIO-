@@ -21,7 +21,7 @@ test('the story is optional: nothing plays until the visitor presses play', () =
   expect(container).toHaveTextContent('refused to stop figuring things out');
   expect(container.querySelector('[data-chapter]')).toBeNull();
   fireEvent.click(screen.getByRole('button', { name: /play the story/i }));
-  expect(container.querySelector('[data-chapter="surat"]')).not.toBeNull();
+  expect(screen.getByRole('dialog', { name: /story/i })).toBeInTheDocument();
 });
 
 test('no friend is named anywhere on the page', () => {

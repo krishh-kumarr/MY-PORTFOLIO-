@@ -22,7 +22,7 @@ function BeatSlot({ beat, i, n, progress, sectionRef }) {
   const y = useTransform(progress, [s, s + f], [40, 0]);
   // Keyboard users: focusing a link inside a beat scrolls the story to that beat.
   const onFocusCapture = () => {
-    const el = sectionRef.current;
+    const el = sectionRef?.current;
     if (!el) return;
     const top = el.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({ top: top + ((s + e) / 2) * (el.offsetHeight - window.innerHeight) });
@@ -35,13 +35,13 @@ function BeatSlot({ beat, i, n, progress, sectionRef }) {
 }
 
 /** A chapter of the story: a sticky stage the visitor scrolls through like a film scene. */
-export default function Chapter({ chapter, Scene }) {
+export default function Chapter({ chapter, Scene, progress: played }) {
   const ref = useRef(null);
   const { mood, setBase } = useAvatar();
-  const { scrollYProgress: progress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
+  // Played by the story player (time-driven), or scrubbed by scrolling.
+  const progress = played ?? scrollYProgress;
   const titleOpacity = useTransform(progress, [0, 0.03, START - 0.03, START], [1, 1, 1, 0]);
-  // Cut from and to black at each end of the chapter, like a film edit.
-  const black = useTransform(progress, [0, 0.025, 0.975, 1], [1, 0, 0, 1]);
   const titleScale = useTransform(progress, [0, START], [1, 1.08]);
   const lastBeat = useRef(-2);
   const n = chapter.beats.length;
@@ -56,8 +56,8 @@ export default function Chapter({ chapter, Scene }) {
   });
 
   return (
-    <section ref={ref} id={chapter.id} aria-labelledby={`${chapter.id}-title`} data-chapter={chapter.id} style={{ height: `${(n + 1.6) * 100}svh` }} className="relative">
-      <div data-pinned className="sticky top-0 h-dvh overflow-hidden">
+    <section ref={ref} id={chapter.id} aria-labelledby={`${chapter.id}-title`} data-chapter={chapter.id} style={{ height: played ? '100%' : `${(n + 1.6) * 100}svh` }} className="relative">
+      <div data-pinned className={`${played ? "absolute inset-0" : "sticky top-0 h-dvh"} overflow-hidden`}>
         <div className="absolute inset-0"><Scene progress={progress} /></div>
 
         <motion.div style={{ opacity: titleOpacity, scale: titleScale }} className="absolute z-30 inset-x-0 top-[9dvh] flex justify-center px-6 text-center pointer-events-none">
@@ -76,11 +76,10 @@ export default function Chapter({ chapter, Scene }) {
 
         <ol className="absolute z-30 left-4 right-4 top-[8dvh] lg:top-0 lg:h-full lg:left-auto lg:right-[6vw] lg:w-[400px]">
           {chapter.beats.map((beat, i) => (
-            <BeatSlot key={i} beat={beat} i={i} n={n} progress={progress} sectionRef={ref} />
+            <BeatSlot key={i} beat={beat} i={i} n={n} progress={progress} sectionRef={played ? null : ref} />
           ))}
         </ol>
 
-        <motion.div aria-hidden="true" style={{ opacity: black }} className="absolute inset-0 bg-black pointer-events-none z-40" />
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[5dvh] bg-black z-40" />
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[5dvh] bg-black z-40" />
       </div>

@@ -55,9 +55,9 @@ export default function Traveler({ travel = 'walk', progress, mood = 'confident'
         {ninja && view !== 'front' && <div className={`absolute top-[20%] h-[40%] w-[140%] speed-lines ${view === 'right' ? 'right-[70%]' : 'left-[70%] -scale-x-100'}`} />}
         <Image src="/avatar/body-front.webp" alt="" width={254} height={898} sizes="200px" className={`absolute inset-0 h-full w-auto mx-auto transition-opacity duration-150 ${side ? 'opacity-0' : 'opacity-100'}`} priority={false} />
         <div className={`absolute inset-0 transition-opacity duration-150 ${side ? 'opacity-100' : 'opacity-0'} ${view === 'left' ? '-scale-x-100' : ''}`}>
-          <Image src="/avatar/body-side.webp" alt="" width={181} height={896} sizes="160px" className="absolute inset-0 h-full w-auto mx-auto" />
+          <Image src="/avatar/body-side.webp" alt="" width={198} height={896} sizes="160px" className="absolute inset-0 h-full w-auto mx-auto" />
           {ninja && (
-            <svg viewBox="0 0 181 896" className="absolute inset-0 h-full w-auto mx-auto overflow-visible">
+            <svg viewBox="0 0 198 896" className="absolute inset-0 h-full w-auto mx-auto overflow-visible">
               <path d="M52 66 Q105 52 150 62 L152 76 Q105 66 54 80Z" fill="#1E2430" />
               <rect x="118" y="58" width="26" height="15" rx="3" fill="#BFC8D2" stroke="#15212B" strokeWidth="2" />
               <text x="131" y="70" textAnchor="middle" fontSize="12" fontWeight="900" fill="#15212B">K</text>
