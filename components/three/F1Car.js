@@ -2,7 +2,6 @@
 import { forwardRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { T, textTexture } from './toon';
-import Character from './Character';
 
 const BODY = '#E9A93A', DARK = '#121820', TEAL = '#5FD0C6', TYRE = '#16191E', RIM = '#38414E', STRIPE = '#F2C230';
 
@@ -30,7 +29,7 @@ function useGeos() {
       halo: new THREE.TubeGeometry(halo, 24, 0.03, 8, false), haloPost: new THREE.CylinderGeometry(0.025, 0.03, 0.3, 8),
       tyreF: new THREE.CylinderGeometry(0.31, 0.31, 0.3, 28), tyreR: new THREE.CylinderGeometry(0.34, 0.34, 0.38, 28),
       rim: new THREE.CylinderGeometry(0.2, 0.2, 0.02, 20), stripe: new THREE.TorusGeometry(0.255, 0.016, 6, 32), hub: new THREE.CylinderGeometry(0.05, 0.05, 0.03, 10),
-      arm: new THREE.CylinderGeometry(0.012, 0.012, 1, 6), mirror: new THREE.BoxGeometry(0.12, 0.06, 0.04), plate: new THREE.PlaneGeometry(0.46, 0.26),
+      arm: new THREE.CylinderGeometry(0.012, 0.012, 1, 6), mirror: new THREE.BoxGeometry(0.12, 0.06, 0.04), plate: new THREE.PlaneGeometry(0.46, 0.26), helmet: new THREE.SphereGeometry(0.16, 18, 14), shoulders: new THREE.CapsuleGeometry(0.1, 0.22, 3, 10).rotateZ(Math.PI / 2),
     };
   }, []);
 }
@@ -65,7 +64,7 @@ function Arm({ g, from, to }) {
 export const WHEELS = [[-0.86, 0.31, -1.45, false], [0.86, 0.31, -1.45, false], [-0.84, 0.34, 1.35, true], [0.84, 0.34, 1.35, true]];
 
 /** An original open-wheel race car in Krish's colours, number 27, with the 3D avatar in the cockpit. */
-const F1Car = forwardRef(function F1Car({ wheels, mood = 'excited', look }, ref) {
+const F1Car = forwardRef(function F1Car({ wheels }, ref) {
   const g = useGeos();
   const num = useMemo(() => textTexture('27', { w: 128, h: 72, bg: '#F6FBFD', fg: '#15212B', font: '900 56px sans-serif' }), []);
   return (
@@ -104,10 +103,11 @@ const F1Car = forwardRef(function F1Car({ wheels, mood = 'excited', look }, ref)
           <Wheel g={g} rear={rear} side={Math.sign(x)} refCb={(el) => { if (wheels) wheels.current[i] = el; }} />
         </group>
       ))}
-      {/* the driver: Krish, seated, looking down the track */}
-      <group position={[0, 0.06, 0.02]} rotation={[0, Math.PI, 0]} scale={0.5}>
-        <Character pose="sit" mood={mood} look={look} headband />
-      </group>
+      {/* the driver: helmet and shoulders in the cockpit */}
+      <T g={g.helmet} c={BODY} position={[0, 0.72, -0.05]} scale={[1, 0.95, 1.1]} />
+      <mesh position={[0, 0.74, -0.2]} rotation={[0.15, 0, 0]}><boxGeometry args={[0.26, 0.07, 0.06]} /><meshBasicMaterial color="#0B0F14" /></mesh>
+      <mesh position={[0, 0.79, -0.08]} rotation={[0, 0, 0]}><boxGeometry args={[0.3, 0.025, 0.24]} /><meshBasicMaterial color={TEAL} /></mesh>
+      <T g={g.shoulders} c={DARK} position={[0, 0.56, 0.02]} />
     </group>
   );
 });

@@ -4,7 +4,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import F1Car from '../three/F1Car';
 import { toon, glowTexture } from '../three/toon';
-import { damp } from '../three/rig';
+const damp = (a, b, k, dt) => a + (b - a) * (1 - Math.exp(-k * dt));
 import { litCount, LIGHTS_OUT } from './lights';
 
 const ACCEL = 11;          // units/s²
@@ -57,7 +57,7 @@ function Gantry({ lights }) {
 
 function Race({ progress }) {
   const { camera, clock, size } = useThree();
-  const car = useRef(), wheels = useRef([]), lights = useRef([]), streaks = useRef(), smoke = useRef(), look = useRef({ x: 0, y: 0.1 });
+  const car = useRef(), wheels = useRef([]), lights = useRef([]), streaks = useRef(), smoke = useRef();
   const st = useRef({ launch: null, z: 0, v: 0, camZ: 6, fov: 48, shake: 0 });
   const streakData = useMemo(() => Array.from({ length: LINES }, () => [(Math.random() < 0.5 ? -1 : 1) * (4.6 + Math.random() * 6), 0.3 + Math.random() * 3.2, -Math.random() * 60]), []);
   const dummy = useMemo(() => new THREE.Object3D(), []);
@@ -126,7 +126,7 @@ function Race({ progress }) {
       <Track />
       <Lamps />
       <Gantry lights={lights} />
-      <F1Car ref={car} wheels={wheels} look={look} />
+      <F1Car ref={car} wheels={wheels} />
       <group ref={smoke}>{Array.from({ length: 6 }, (_, i) => <sprite key={i} material={smokeMat} />)}</group>
       <instancedMesh ref={streaks} args={[null, null, LINES]} material={streakMat}><boxGeometry args={[0.025, 0.025, 1.6]} /></instancedMesh>
     </>

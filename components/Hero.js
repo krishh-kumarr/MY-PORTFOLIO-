@@ -1,28 +1,24 @@
 'use client';
-import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowDown, FileText, Play } from 'lucide-react';
-import { AvatarFace } from './Avatar';
+import HeroAvatar from './hero/HeroAvatar';
 import Bubble from './Bubble';
 import { useAvatar, useSectionMood } from './AvatarProvider';
-import { canRun3D, readEnv } from '@/lib/capability';
 import { links } from '@/lib/data';
 
-const HeroStage3D = dynamic(() => import('./hero/HeroStage3D'), { ssr: false, loading: () => null });
-
-const GREETING = 'Hi, I’m Krish. Move your cursor, I’m watching.';
+const GREETING = 'Hi, I’m Krish. Move your cursor around.';
 
 export default function Hero() {
   const ref = useRef(null);
   const { mood, say, react, settle } = useAvatar();
   const reduce = useReducedMotion();
-  const [three, setThree] = useState(false);
   const [aura, setAura] = useState('none');
-  const [pose, setPose] = useState('idle');
+  const [leafKey, setLeafKey] = useState(0);
+  const [hop, setHop] = useState(false);
   const hovering = useRef(false), timer = useRef();
   useSectionMood(ref, 'confident', GREETING);
-  useEffect(() => { setThree(canRun3D(readEnv())); return () => clearTimeout(timer.current); }, []);
+  useEffect(() => () => clearTimeout(timer.current), []);
 
   const onHover = (on) => {
     hovering.current = on;
@@ -31,9 +27,10 @@ export default function Hero() {
   };
   const onPoke = () => {
     clearTimeout(timer.current);
-    setAura('lightning'); setPose('wave');
-    react('surprised', 'Whoa! Lightning mode. Okay, you found the secret.', 1800);
-    timer.current = setTimeout(() => { setPose('idle'); setAura(hovering.current ? 'gold' : 'none'); }, 1800);
+    setAura('lightning'); setLeafKey((k) => k + 1); setHop(true);
+    react('surprised', 'Whoa! Lightning mode. Okay, you found the secret.', 1200);
+    setTimeout(() => setHop(false), 450);
+    timer.current = setTimeout(() => { react('excited', 'Now go check out my projects!', 1800); setAura(hovering.current ? 'gold' : 'none'); }, 1300);
   };
 
   const fade = (d) => (reduce ? {} : { initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, delay: d, ease: [0.2, 0.8, 0.2, 1] } });
@@ -69,13 +66,7 @@ export default function Hero() {
 
         <motion.div {...fade(0.2)} className="relative aspect-square w-full max-w-[560px] mx-auto">
           <div aria-hidden="true" className="absolute inset-[8%] rounded-full hero-halo" />
-          {three ? (
-            <HeroStage3D mood={mood} aura={aura} pose={pose} onHover={onHover} onPoke={onPoke} />
-          ) : (
-            <button type="button" aria-label="Poke the avatar" onPointerEnter={() => react('laughing', 'Ha, hi there!', 0)} onPointerLeave={settle} onClick={() => react('surprised', 'Whoa! You found the secret.', 1800)} className="absolute inset-x-[14%] bottom-0 cursor-pointer">
-              <AvatarFace mood={mood} sizes="(min-width: 1024px) 420px, 72vw" priority className="aspect-[640/700]" />
-            </button>
-          )}
+          <HeroAvatar mood={mood} aura={aura} leafKey={leafKey} hop={hop} onHover={onHover} onPoke={onPoke} />
           <Bubble text={say} tail="bottom" className="absolute z-10 top-[1%] left-0 max-w-[240px] text-sm sm:text-base" />
           <p aria-hidden="true" className="absolute bottom-1 inset-x-0 text-center text-xs text-muted">Hover me. Click me.</p>
         </motion.div>

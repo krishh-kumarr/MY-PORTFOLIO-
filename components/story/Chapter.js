@@ -35,7 +35,7 @@ function BeatSlot({ beat, i, n, progress, sectionRef }) {
 }
 
 /** A chapter of the story: a sticky stage the visitor scrolls through like a film scene. */
-export default function Chapter({ chapter, Scene, traveler = true }) {
+export default function Chapter({ chapter, Scene }) {
   const ref = useRef(null);
   const { mood, setBase } = useAvatar();
   const { scrollYProgress: progress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
@@ -72,7 +72,7 @@ export default function Chapter({ chapter, Scene, traveler = true }) {
         </motion.div>
 
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none story-vignette" />
-        {traveler && <Traveler travel={chapter.travel} progress={progress} mood={mood} />}
+        <Traveler travel={chapter.travel} progress={progress} mood={mood} />
 
         <ol className="absolute z-30 left-4 right-4 top-[8dvh] lg:top-0 lg:h-full lg:left-auto lg:right-[6vw] lg:w-[400px]">
           {chapter.beats.map((beat, i) => (
