@@ -7,7 +7,7 @@ import Section from './Section';
 import { useAvatar } from './AvatarProvider';
 import { links } from '@/lib/data';
 
-const field = 'w-full bg-surface border-2 border-line rounded-xl px-4 py-3 focus-visible:outline-offset-2';
+const field = 'w-full bg-raised border border-line rounded-xl px-4 py-3 transition-shadow focus-visible:outline-none focus-visible:border-mustard focus-visible:shadow-[0_0_0_4px_rgb(240_181_68/.2)]';
 
 export default function Contact() {
   const form = useRef(null);
@@ -41,14 +41,14 @@ export default function Contact() {
         <ul className="space-y-3">
           {direct.map(([Icon, label, value, href]) => (
             <li key={label}>
-              <a href={href} target={href.startsWith('mailto') ? undefined : '_blank'} rel="noopener" className="flex items-center gap-4 bg-surface sticker sticker-hover rounded-2xl px-5 py-4">
+              <a href={href} target={href.startsWith('mailto') ? undefined : '_blank'} rel="noopener" className="group spot flex items-center gap-4 bg-surface sticker rounded-2xl px-5 py-4">
                 <Icon aria-hidden="true" />
                 <span><span className="block text-sm text-muted">{label}</span><span className="font-semibold break-all">{value}</span></span>
               </a>
             </li>
           ))}
         </ul>
-        <form ref={form} onSubmit={send} className="bg-surface sticker rounded-3xl p-6 sm:p-8 space-y-5">
+        <form ref={form} onSubmit={send} className="spot bg-surface sticker rounded-3xl p-6 sm:p-8 space-y-5" style={{ '--spot': '#5FD0C6' }}>
           <div className="grid sm:grid-cols-2 gap-5">
             <label className="block"><span className="block font-semibold mb-1.5">Name</span><input name="user_name" required autoComplete="name" className={field} /></label>
             <label className="block"><span className="block font-semibold mb-1.5">Email</span><input name="user_email" type="email" required autoComplete="email" className={field} /></label>

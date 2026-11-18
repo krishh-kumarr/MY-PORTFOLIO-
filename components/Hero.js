@@ -57,8 +57,8 @@ export default function Hero() {
             <a href="#story" className="sticker sticker-hover rounded-full bg-surface px-6 py-3 font-semibold text-lg inline-flex items-center gap-2"><Play size={18} aria-hidden="true" /> Watch my story</a>
             <a href={links.resume} target="_blank" rel="noopener" className="rounded-full px-4 py-3 font-semibold inline-flex items-center gap-2 text-muted hover:text-fg"><FileText size={18} aria-hidden="true" /> Resume</a>
           </motion.div>
-          <motion.dl {...fade(0.4)} className="mt-12 grid grid-cols-3 gap-4 max-w-md">
-            {[['9.81', 'CGPA'], ['3', 'internships'], ['₹80K', 'PRISM prize']].map(([n, l]) => (
+          <motion.dl {...fade(0.4)} className="mt-12 grid grid-cols-2 gap-4 max-w-xs">
+            {[['9.81', 'CGPA'], ['3', 'internships']].map(([n, l]) => (
               <div key={l} className="border-l-2 border-mustard pl-3"><dt className="sr-only">{l}</dt><dd className="font-display font-bold text-2xl">{n}</dd><dd className="text-sm text-muted">{l}</dd></div>
             ))}
           </motion.dl>

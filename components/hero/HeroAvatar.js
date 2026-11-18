@@ -36,7 +36,7 @@ export default function HeroAvatar({ mood, aura, leafKey, hop, onHover, onPoke }
     <div ref={wrap} className="absolute inset-0" style={{ perspective: 1100 }}>
       <motion.div style={reduce ? undefined : { rotateX: rx, rotateY: ry, transformStyle: 'preserve-3d' }} className="absolute inset-0">
         {/* back layer: card and pattern */}
-        <motion.div style={reduce ? undefined : { x: bx, y: by, translateZ: -40 }} className="absolute inset-[7%] rounded-[44px] bg-gradient-to-br from-[#1C3550] via-[#16283D] to-[#0F1B2B] border border-line overflow-hidden">
+        <motion.div style={reduce ? undefined : { x: bx, y: by, translateZ: -40 }} className="absolute inset-[7%] rounded-[44px] hero-card border border-line overflow-hidden">
           <div className="absolute inset-0 hero-card-pattern" />
         </motion.div>
         <div className="absolute inset-0" style={{ transform: 'translateZ(10px)' }}><AuraFx mode={aura} leafKey={leafKey} /></div>
