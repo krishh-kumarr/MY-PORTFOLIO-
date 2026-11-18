@@ -15,7 +15,7 @@ for (const [name, vp] of [['desktop', { width: 1360, height: 860 }], ['phone', {
   const first = bytes;
   const got3D = async () => (await Promise.all([...urls.values()].filter((u) => u.includes('/_next/static/chunks/')).map((u) => fetch(u).then((r) => r.text()).then((t) => t.includes('WebGLRenderer'))))).some(Boolean);
   const before = await got3D();
-  await page.evaluate(() => document.getElementById('lightsout').scrollIntoView({ behavior: 'instant' }));
+  await page.evaluate(() => document.getElementById('lightsout')?.scrollIntoView({ behavior: 'instant' }));
   await new Promise((r) => setTimeout(r, 2500));
   console.log(`${name}: first load ${(first / 1024).toFixed(0)} KB, 3D before scrolling: ${before}, 3D after reaching chapter 5: ${await got3D()}, total ${(bytes / 1024).toFixed(0)} KB`);
   await ctx.close();
