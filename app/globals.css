@@ -56,3 +56,11 @@ body { background: var(--color-paper); color: var(--color-ink); }
 .travel-run .traveler-shadow { animation: shadow-pulse .45s ease-in-out infinite; }
 .travel-drive { animation: car-rumble .25s linear infinite; }
 .travel-drive .wheel { animation: wheel-spin .4s linear infinite; }
+
+/* Story: ambient scene motion */
+@keyframes kite-sway { 0%, 100% { transform: translate(0, 0) rotate(-4deg); } 50% { transform: translate(18px, -14px) rotate(5deg); } }
+@keyframes fog-drift { 0%, 100% { transform: translateX(-40px); } 50% { transform: translateX(40px); } }
+@keyframes q-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+.kite { animation: kite-sway 4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.fog { animation: fog-drift 9s ease-in-out infinite; }
+.float-q { animation: q-float 5s ease-in-out infinite; }

@@ -58,7 +58,7 @@ export default function Chapter({ chapter, Scene }) {
       <div data-pinned className="sticky top-0 h-dvh overflow-hidden">
         <div className="absolute inset-0"><Scene progress={progress} /></div>
 
-        <motion.div style={{ opacity: titleOpacity, scale: titleScale }} className="absolute inset-0 grid place-items-center px-6 text-center pointer-events-none">
+        <motion.div style={{ opacity: titleOpacity, scale: titleScale }} className="absolute inset-x-0 top-[9dvh] flex justify-center px-6 text-center pointer-events-none">
           <div className="bg-paper/85 sticker rounded-[28px] px-8 py-7 max-w-xl">
             <h2 id={`${chapter.id}-title`} className="font-display font-extrabold tracking-tight">
               <span className="block text-lg sm:text-xl text-muted font-semibold">Chapter {chapter.number}</span>
