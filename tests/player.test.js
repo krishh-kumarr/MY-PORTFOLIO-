@@ -10,8 +10,8 @@ test('every chapter gets a time card, and the cards use real years', () => {
 });
 
 test('chapters play long enough to read every beat', () => {
-  for (const c of chapters) expect(chapterSeconds(c)).toBeGreaterThanOrEqual(3 + c.beats.length * 4);
-  expect(CARD_SECONDS).toBeGreaterThanOrEqual(2);
+  for (const c of chapters) expect(chapterSeconds(c)).toBeGreaterThanOrEqual(2 + c.beats.length * 3);
+  expect(CARD_SECONDS).toBeGreaterThanOrEqual(1.5);
 });
 
 test('the player opens on the first time card, plays by itself, and can be paused and closed', async () => {

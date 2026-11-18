@@ -7,7 +7,7 @@ SRC=design-assets; mkdir -p public/photos public/art
 landscape() { cwebp -quiet -q 72 -resize 1200 0 "$SRC/photos/$1" -o "public/photos/${1%.*}.webp"; }
 portrait()  { cwebp -quiet -q 72 -resize 0 1200 "$SRC/photos/$1" -o "public/photos/${1%.*}.webp"; }
 portrait childhood-with-mom.jpg
-landscape family.jpg
+cwebp -quiet -q 72 -resize 1200 0 "$SRC/photos/family.jpg" -o public/photos/family-v2.webp
 portrait srm-campus.jpg
 landscape prism-lab-2.jpg
 landscape infosys-team-steps.jpg

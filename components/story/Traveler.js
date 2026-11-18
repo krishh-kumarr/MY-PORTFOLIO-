@@ -1,8 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
-import { AnimatePresence, motion, useAnimationFrame, useMotionValue } from 'motion/react';
-import { AvatarFace } from '../Avatar';
+import { motion, useAnimationFrame, useMotionValue } from 'motion/react';
 import AuraFx from '../AuraFx';
 
 const STEP = 0.06;   // fraction of screen width per stride
@@ -25,7 +24,7 @@ export default function Traveler({ travel = 'walk', progress, mood = 'confident'
     const p = progress.get();
     const drive = travel === 'drive';
     const t = drive ? Math.max(0, Math.min(1, (p - 0.74) / 0.14)) : p;
-    const target = 4 + t * 40; // % of stage width
+    const target = 2 + t * 50; // % of stage width
     if (s.x === null) { s.x = target; s.prev = target; }
     s.x = damp(s.x, target, 7, dt);
     const dx = s.x - s.prev; s.prev = s.x;
@@ -55,7 +54,7 @@ export default function Traveler({ travel = 'walk', progress, mood = 'confident'
         {ninja && view !== 'front' && <div className={`absolute top-[20%] h-[40%] w-[140%] speed-lines ${view === 'right' ? 'right-[70%]' : 'left-[70%] -scale-x-100'}`} />}
         <Image src="/avatar/body-front.webp" alt="" width={254} height={898} sizes="200px" className={`absolute inset-0 h-full w-auto mx-auto transition-opacity duration-150 ${side ? 'opacity-0' : 'opacity-100'}`} priority={false} />
         <div className={`absolute inset-0 transition-opacity duration-150 ${side ? 'opacity-100' : 'opacity-0'} ${view === 'left' ? '-scale-x-100' : ''}`}>
-          <Image src="/avatar/body-side.webp" alt="" width={198} height={896} sizes="160px" className="absolute inset-0 h-full w-auto mx-auto" />
+          <Image src="/avatar/body-side-v2.webp" alt="" width={198} height={896} sizes="160px" className="absolute inset-0 h-full w-auto mx-auto" />
           {ninja && (
             <svg viewBox="0 0 198 896" className="absolute inset-0 h-full w-auto mx-auto overflow-visible">
               <path d="M52 66 Q105 52 150 62 L152 76 Q105 66 54 80Z" fill="#1E2430" />
@@ -65,12 +64,6 @@ export default function Traveler({ travel = 'walk', progress, mood = 'confident'
             </svg>
           )}
         </div>
-        <AnimatePresence mode="popLayout">
-          <motion.div key={mood} initial={{ scale: 0, opacity: 0, y: 10 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.6, opacity: 0 }} transition={{ type: 'spring', stiffness: 380, damping: 18 }}
-            className="absolute -top-[13%] left-1/2 -translate-x-1/2 size-[clamp(64px,9dvh,92px)] rounded-full bg-sky border-2 border-line overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,.5)]">
-            <AvatarFace mood={mood} sizes="92px" className="absolute inset-x-1 -bottom-1 aspect-[640/700]" />
-          </motion.div>
-        </AnimatePresence>
       </motion.div>
       <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[160%] h-4 rounded-[50%] bg-black/45 blur-[3px]" />
     </motion.div>
