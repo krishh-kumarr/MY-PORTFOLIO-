@@ -24,9 +24,11 @@ export function Car({ className = '' }) {
 /** The avatar travelling across a chapter: walking, running or driving. */
 export default function Traveler({ travel = 'walk', progress, mood = 'confident' }) {
   const left = useTransform(progress, [0, 1], ['4%', '46%']);
+  // Driving waits off-screen through the 3D launch, then rolls in to the tower.
+  const driveLeft = useTransform(progress, [0.68, 0.78], ['-80%', '22%']);
   if (travel === 'drive') {
     return (
-      <motion.div style={{ left }} className="absolute bottom-[9dvh] w-[min(62vw,420px)] travel-drive" aria-hidden="true">
+      <motion.div style={{ left: driveLeft }} className="absolute bottom-[7dvh] w-[min(62vw,420px)] travel-drive" aria-hidden="true">
         <div className="absolute left-[34%] -top-[58%] w-[34%]">
           <AvatarFace mood={mood} sizes="160px" className="aspect-[640/700]" />
         </div>
