@@ -73,7 +73,7 @@ export default function StoryPlayer({ onClose, onProjects, inline = false }) {
 
   const c = chapters[i];
   return (
-    <div ref={wrap} {...(inline ? { role: 'region' } : { role: 'dialog', 'aria-modal': 'true' })} aria-label="Krish’s story" className={inline ? 'relative h-[min(78dvh,720px)] overflow-hidden bg-night text-fg' : 'fixed inset-0 z-[70] bg-night text-fg'}>
+    <div ref={wrap} {...(inline ? { role: 'region' } : { role: 'dialog', 'aria-modal': 'true' })} aria-label="Krish’s story" className={inline ? 'relative isolate z-0 h-[min(78dvh,720px)] overflow-hidden bg-night text-fg' : 'fixed inset-0 z-[70] bg-night text-fg'}>
       <AnimatePresence mode="sync">
         {phase === 'play' && (
           <motion.div key={`ch-${c.id}`} className="absolute inset-0" initial={{ scale: 1.08, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.96, opacity: 0 }} transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}>
@@ -97,7 +97,7 @@ export default function StoryPlayer({ onClose, onProjects, inline = false }) {
 
       <div className="absolute inset-x-0 bottom-0 z-[80] h-1 bg-white/10"><div ref={bar} className="h-full origin-left bg-mustard" style={{ transform: 'scaleX(0)' }} /></div>
       {inline && (
-        <div className="absolute right-3 bottom-4 z-[80] flex items-center gap-2">
+        <div className="absolute right-3 bottom-4 z-30 flex items-center gap-2">
           <button type="button" onClick={() => goTo(Math.max(0, i - 1))} aria-label="Previous chapter" className="grid place-items-center size-10 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white"><SkipBack size={16} /></button>
           <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Play' : 'Pause'} className="grid place-items-center size-10 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white">{paused ? <Play size={16} /> : <Pause size={16} />}</button>
           <button type="button" onClick={() => goTo(i + 1)} aria-label="Next chapter" className="grid place-items-center size-10 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white"><SkipForward size={16} /></button>

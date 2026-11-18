@@ -15,7 +15,7 @@ export function beatWindow(i, n) {
 }
 
 /** Spots around the frame where a caption can sit without covering the walker (bottom-left to centre). */
-const SPOTS = ['lg:top-[10%] lg:right-[6%]', 'lg:top-[9%] lg:left-[6%]', 'lg:top-[40%] lg:right-[4%]', 'lg:top-[12%] lg:left-[34%]', 'lg:bottom-[14%] lg:right-[8%]'];
+const SPOTS = ['lg:top-[12%] lg:right-[6%]', 'lg:top-[12%] lg:left-[6%]', 'lg:top-[40%] lg:right-[4%]', 'lg:top-[14%] lg:left-[34%]', 'lg:top-auto lg:bottom-[14%] lg:right-[8%]'];
 const spotFor = (id, i) => SPOTS[(id.length * 7 + i * 3) % SPOTS.length];
 
 function BeatSlot({ beat, i, n, progress, sectionRef, chapterId }) {
@@ -79,14 +79,14 @@ export default function Chapter({ chapter, Scene, progress: played }) {
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none story-vignette" />
         <Traveler travel={chapter.travel} progress={progress} mood={mood} />
 
-        <ol className="absolute z-30 left-4 right-4 top-[8dvh] lg:inset-0">
+        <ol className="absolute z-30 left-4 right-4 top-[9%] lg:inset-0">
           {chapter.beats.map((beat, i) => (
             <BeatSlot key={i} beat={beat} i={i} n={n} progress={progress} sectionRef={played ? null : ref} chapterId={chapter.id} />
           ))}
         </ol>
 
-        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[5dvh] bg-black z-40" />
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[5dvh] bg-black z-40" />
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[6%] bg-black z-40" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[6%] bg-black z-40" />
       </div>
     </section>
   );

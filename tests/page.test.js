@@ -18,7 +18,7 @@ test('the professional portfolio comes first and the story last', () => {
 
 test('the story plays on its own at the bottom, with no play button', () => {
   const { container } = renderHome();
-  expect(container).toHaveTextContent('See you around.');
+  expect(container).toHaveTextContent('Let’s build something together.');
   expect(screen.getByRole('region', { name: /story/i })).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: /play my story/i })).toBeNull();
 });
