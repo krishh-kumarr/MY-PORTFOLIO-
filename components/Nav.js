@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { links } from '@/lib/data';
 
-const items = [['Work', '/#work'], ['Projects', '/#projects'], ['Recognition', '/#recognition'], ['Contact', '/#contact']];
+const items = [['Story', '/#story'], ['Work', '/#work'], ['Projects', '/#projects'], ['Contact', '/#contact']];
 
 export default function Nav() {
   return (

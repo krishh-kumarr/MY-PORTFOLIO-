@@ -14,7 +14,7 @@ export default function StaticStory({ chapters }) {
       {chapters.map((c) => {
         const Scene = stillScenes[c.scene];
         return (
-          <section key={c.id} id={c.id} aria-labelledby={`${c.id}-title`}>
+          <section key={c.id} id={c.id} data-chapter={c.id} aria-labelledby={`${c.id}-title`}>
             <div className="relative aspect-[16/9] sm:aspect-[21/9] rounded-3xl sticker overflow-hidden">
               <Scene progress={still} />
               <div className="absolute bottom-0 left-4 w-[28%] max-w-[200px]">

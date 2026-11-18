@@ -7,11 +7,24 @@ import Bubble from './Bubble';
 import { useAvatar } from './AvatarProvider';
 
 /** Small avatar in the corner that follows you once the hero is off screen. */
-export default function Peek({ watch = 'top', always = false }) {
+export default function Peek({ watch = 'top', always = false, hideOver }) {
   const { mood, say, react, settle } = useAvatar();
   const reduce = useReducedMotion();
   const [show, setShow] = useState(always);
   const [quiet, setQuiet] = useState(false);
+  const [over, setOver] = useState(false);
+
+  // Stay out of the way while a story chapter is on screen; its own avatar is already there.
+  useEffect(() => {
+    if (!hideOver) return;
+    const seen = new Set();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target));
+      setOver(seen.size > 0);
+    });
+    document.querySelectorAll(hideOver).forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [hideOver]);
 
   useEffect(() => {
     if (always) return;
@@ -26,7 +39,7 @@ export default function Peek({ watch = 'top', always = false }) {
 
   return (
     <AnimatePresence>
-      {show && (
+      {show && !over && (
         <motion.aside
           aria-label="Avatar guide"
           initial={reduce ? false : { y: 140, opacity: 0 }}
