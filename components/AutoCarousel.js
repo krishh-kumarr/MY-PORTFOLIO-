@@ -14,7 +14,7 @@ export default function AutoCarousel({ items, every = 3800 }) {
   }, [items.length, every, reduce]);
   const im = items[i];
   return (
-    <div aria-label="Project photos" role="img" className="relative grid place-items-center min-h-[min(68dvh,600px)] overflow-hidden rounded-3xl border border-line bg-gradient-to-b from-raised to-night py-10 px-4">
+    <div aria-label="Project photos" role="img" className="relative grid place-items-center min-h-[min(68dvh,600px)] py-6">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div key={im.src} className="grid place-items-center w-full"
           initial={reduce ? false : { opacity: 0, y: 40, scale: 0.94, rotateX: 12 }}
@@ -25,7 +25,7 @@ export default function AutoCarousel({ items, every = 3800 }) {
           <DeviceFrame im={im} />
         </motion.div>
       </AnimatePresence>
-      <div aria-hidden="true" className="absolute bottom-4 inset-x-0 flex justify-center gap-1.5">
+      <div aria-hidden="true" className="absolute bottom-0 inset-x-0 flex justify-center gap-1.5">
         {items.map((x, k) => <span key={x.src} className={`h-1.5 rounded-full transition-all duration-500 ${k === i ? 'w-6 bg-mustard' : 'w-1.5 bg-line'}`} />)}
       </div>
     </div>

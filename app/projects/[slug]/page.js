@@ -9,6 +9,7 @@ import Peek from '@/components/Peek';
 import SetMood from '@/components/SetMood';
 import { projects, galleries } from '@/lib/data';
 import AutoCarousel from '@/components/AutoCarousel';
+import ScrollTop from '@/components/ScrollTop';
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -29,6 +30,7 @@ export default async function ProjectPage({ params }) {
 
   return (
     <>
+      <ScrollTop />
       <Nav />
       <SetMood mood="thoughtful" say={p.pitch} />
       <main id="main" className="mx-auto max-w-6xl px-5 py-12">

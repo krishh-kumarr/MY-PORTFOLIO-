@@ -34,12 +34,12 @@ export default function Footer({ onPlay }) {
         </div>
       </div>
 
-      <div className="relative mt-10 h-[min(62vw,520px)]">
+      <div className="relative mt-10">
         <motion.p aria-hidden="true" style={reduce ? undefined : { y: nameY }} className="absolute inset-x-0 top-0 text-center font-display font-extrabold leading-none tracking-tighter text-[26vw] text-fg/[.06] select-none">KRISH</motion.p>
-        <motion.div aria-hidden="true" style={reduce ? undefined : { y: crowdY }} className="absolute inset-x-0 bottom-0 h-[72%] footer-crowd">
-          <Image src="/art/crew-selfie.webp" alt="" fill sizes="100vw" className="object-cover object-[50%_35%]" />
+        <motion.div aria-hidden="true" style={reduce ? undefined : { y: crowdY }} className="relative mx-auto max-w-5xl pt-[8vw] footer-crowd">
+          <Image src="/art/crew-selfie.webp" alt="" width={1024} height={768} sizes="(min-width: 1024px) 1024px, 100vw" className="w-full h-auto" />
         </motion.div>
-        <motion.div style={reduce ? undefined : { y: meY }} className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[92%] aspect-[254/898]">
+        <motion.div style={reduce ? undefined : { y: meY }} className="absolute bottom-0 left-[3%] sm:left-[6%] h-[62%] aspect-[254/898]">
           <Image src="/avatar/body-front.webp" alt="Krish's cartoon avatar standing in front" width={254} height={898} sizes="160px" className="h-full w-auto drop-shadow-[0_20px_30px_rgba(0,0,0,.45)]" />
         </motion.div>
         {onPlay && (

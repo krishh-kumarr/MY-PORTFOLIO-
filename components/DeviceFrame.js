@@ -22,6 +22,7 @@ export default function DeviceFrame({ im, sizes = '(min-width: 1024px) 60vw, 90v
       {img('h-full w-full object-cover')}
     </div>
   );
+  if (im.frame === 'shot') return img('h-[min(62dvh,560px)] w-auto drop-shadow-2xl');
   return (
     <div className="rotate-[-2deg] rounded-sm bg-white p-3 pb-10 shadow-2xl">
       {img('max-h-[58dvh] w-auto max-w-full object-contain')}

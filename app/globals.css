@@ -205,5 +205,5 @@ body { background: var(--color-night); color: var(--color-fg); color-scheme: dar
 
 /* Footer crowd: the friends illustration as ink line art, fading into the page */
 .footer-crowd { filter: grayscale(1) contrast(1.4) brightness(1.05); opacity: .45;
-  mask-image: linear-gradient(to top, #000 55%, transparent); }
+  mask-image: linear-gradient(to top, #000 70%, transparent), linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-composite: intersect; -webkit-mask-composite: source-in; }
 [data-theme="light"] .footer-crowd { mix-blend-mode: multiply; opacity: .55; }
