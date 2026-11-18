@@ -32,3 +32,9 @@ test('renders the scene and a sticky stage', () => {
   expect(screen.getByTestId('scene')).toBeInTheDocument();
   expect(container.querySelector('[data-pinned]')).not.toBeNull();
 });
+
+test('chapter scroll length uses stable small-viewport units so phone address bars do not jolt the film', () => {
+  const { container } = renderGrind();
+  const h = container.querySelector('[data-chapter]').style.height;
+  expect(h).toMatch(/svh$/);
+});

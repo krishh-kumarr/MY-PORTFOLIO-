@@ -54,7 +54,7 @@ export default function Chapter({ chapter, Scene }) {
   });
 
   return (
-    <section ref={ref} id={chapter.id} aria-labelledby={`${chapter.id}-title`} data-chapter={chapter.id} style={{ height: `${(n + 1.6) * 100}dvh` }} className="relative">
+    <section ref={ref} id={chapter.id} aria-labelledby={`${chapter.id}-title`} data-chapter={chapter.id} style={{ height: `${(n + 1.6) * 100}svh` }} className="relative">
       <div data-pinned className="sticky top-0 h-dvh overflow-hidden">
         <div className="absolute inset-0"><Scene progress={progress} /></div>
 
