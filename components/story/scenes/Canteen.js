@@ -5,7 +5,7 @@ import { Layer, SceneSvg, INK } from './Layer';
 export default function Canteen({ progress }) {
   return (
     <SceneSvg>
-      <rect width="1600" height="900" fill="#F4E3C3" />
+      <rect width="1600" height="900" fill="#5B4636" />
       <Layer depth={0.15} progress={progress} drift={80}>
         {[0, 1, 2, 3].map((i) => (
           <g key={i}>
@@ -18,14 +18,14 @@ export default function Canteen({ progress }) {
       {[260, 800, 1340].map((x) => (
         <g key={x}>
           <rect x={x - 110} y="40" width="220" height="16" rx="8" fill="#FFF3D6" stroke={INK} strokeWidth="3" />
-          <path d={`M${x - 160} 56 L${x - 260} 420 H${x + 260} L${x + 160} 56Z`} fill="#FFE7A8" opacity=".25" />
+          <path d={`M${x - 160} 56 L${x - 260} 420 H${x + 260} L${x + 160} 56Z`} fill="#FFE7A8" opacity=".12" />
         </g>
       ))}
       <Layer depth={0.3} progress={progress} drift={90}>
-        <rect x="560" y="420" width="480" height="300" rx="10" fill="#8A6B4E" stroke={INK} strokeWidth="6" />
-        <image href="/art/crew-canteen.webp" x="578" y="438" width="444" height="264" preserveAspectRatio="xMidYMid slice" />
+        <rect x="520" y="290" width="560" height="420" rx="10" fill="#8A6B4E" stroke={INK} strokeWidth="6" />
+        <image href="/art/crew-selfie.webp" x="536" y="306" width="528" height="388" preserveAspectRatio="xMidYMid slice" />
       </Layer>
-      <rect y="700" width="1600" height="200" fill="#D8C29C" />
+      <rect y="700" width="1600" height="200" fill="#3E3029" />
       <Layer depth={0.6} progress={progress}>
         {[0, 1, 2, 3, 4].map((i) => (
           <g key={i}>

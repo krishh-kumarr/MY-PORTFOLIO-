@@ -1,41 +1,50 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #F6FBFD;
+  --color-night: #0A0F18;
+  --color-surface: #121A27;
+  --color-raised: #1A2434;
+  --color-line: #2A3648;
+  --color-fg: #EAF0F7;
+  --color-paper: #0A0F18;
   --color-ink: #15212B;
-  --color-muted: #475866;
+  --color-muted: #9AA8BA;
   --color-sky: #A8DDF3;
-  --color-sky-soft: #DDF2FB;
+  --color-sky-soft: #12283A;
   --color-teal: #7FD6CF;
-  --color-teal-soft: #DDF5F2;
-  --color-mustard: #E3A73A;
-  --color-mustard-soft: #FBEBC8;
+  --color-teal-soft: #0F2A2C;
+  --color-mustard: #F0B544;
+  --color-mustard-soft: #2B2213;
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
-  --shadow-sticker: 4px 4px 0 0 #15212B;
-  --shadow-sticker-lg: 6px 6px 0 0 #15212B;
+  --shadow-sticker: 0 1px 0 0 rgb(255 255 255 / .04) inset, 0 10px 30px -12px rgb(0 0 0 / .6);
+  --shadow-sticker-lg: 0 1px 0 0 rgb(255 255 255 / .06) inset, 0 22px 50px -18px rgb(0 0 0 / .75), 0 0 0 1px rgb(240 181 68 / .35);
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-body { background: var(--color-paper); color: var(--color-ink); }
+body { background: var(--color-night); color: var(--color-fg); color-scheme: dark; }
 
-::selection { background: var(--color-mustard); color: var(--color-ink); }
+::selection { background: var(--color-mustard); color: var(--color-night); }
 
-:focus-visible { outline: 3px solid var(--color-ink); outline-offset: 3px; border-radius: 6px; }
+:focus-visible { outline: 3px solid var(--color-mustard); outline-offset: 3px; border-radius: 6px; }
 
 .sticker {
-  border: 2px solid var(--color-ink);
+  border: 1px solid var(--color-line);
   box-shadow: var(--shadow-sticker);
-  transition: transform .18s ease, box-shadow .18s ease;
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, border-color .25s ease;
 }
 .sticker-hover:hover, .sticker-hover:focus-within {
-  transform: translate(-2px, -2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-sticker-lg);
+  border-color: rgb(240 181 68 / .5);
 }
-.sticker-hover:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 0 var(--color-ink); }
+.sticker-hover:active { transform: translateY(0) scale(.98); }
+
+/* Dark text on every mustard surface, whatever other text utility is on it (unlayered, so it wins). */
+.bg-mustard { color: var(--color-night); }
 
 .dot-grid {
-  background-image: radial-gradient(color-mix(in srgb, var(--color-ink) 14%, transparent) 1px, transparent 1px);
+  background-image: radial-gradient(color-mix(in srgb, var(--color-fg) 10%, transparent) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
@@ -68,3 +77,19 @@ body { background: var(--color-paper); color: var(--color-ink); }
 @keyframes flutter { 0%, 100% { transform: skewY(0deg) scaleX(1); } 50% { transform: skewY(-6deg) scaleX(.92); } }
 .twinkle { animation: twinkle 3s ease-in-out infinite; }
 .flutter { animation: flutter 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 0 50%; }
+
+/* Hero backdrop */
+.hero-bg {
+  background:
+    radial-gradient(60% 50% at 75% 45%, rgb(240 181 68 / .13), transparent 70%),
+    radial-gradient(50% 50% at 15% 10%, rgb(127 214 207 / .08), transparent 70%),
+    radial-gradient(color-mix(in srgb, var(--color-fg) 7%, transparent) 1px, transparent 1px) 0 0 / 24px 24px;
+  mask-image: linear-gradient(to bottom, black 70%, transparent);
+}
+.hero-halo {
+  background: conic-gradient(from 0deg, rgb(240 181 68 / .0), rgb(240 181 68 / .22), rgb(127 214 207 / .18), rgb(168 107 255 / .16), rgb(240 181 68 / .0));
+  filter: blur(40px);
+  animation: halo-spin 18s linear infinite;
+}
+@keyframes halo-spin { to { transform: rotate(360deg); } }
+.story-vignette { background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgb(0 0 0 / .55)); }

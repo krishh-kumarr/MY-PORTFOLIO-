@@ -8,7 +8,7 @@ export default function Recognition() {
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-8">
         <div className="bg-mustard-soft sticker rounded-3xl p-6 sm:p-8">
           <h3 className="flex items-center gap-2 font-display font-bold text-2xl"><Award aria-hidden="true" /> Awards</h3>
-          <ul className="mt-5 divide-y-2 divide-ink/10">
+          <ul className="mt-5 divide-y-2 divide-line">
             {awards.map((a) => (
               <li key={a.title} className="flex items-baseline gap-4 py-3">
                 <span className="font-semibold mr-auto">{a.title}</span>

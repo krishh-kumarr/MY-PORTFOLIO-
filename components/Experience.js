@@ -10,8 +10,8 @@ function Role({ job, open, onToggle }) {
   const id = `role-${job.company.replace(/\W+/g, '-')}`;
   return (
     <li className="relative pl-10">
-      <span aria-hidden="true" className="absolute left-0 top-6 size-5 rounded-full bg-mustard border-2 border-ink" />
-      <div className="bg-white sticker rounded-2xl">
+      <span aria-hidden="true" className="absolute left-0 top-6 size-5 rounded-full bg-mustard border-2 border-line" />
+      <div className="bg-surface sticker rounded-2xl">
         <button type="button" onClick={onToggle} aria-expanded={open} aria-controls={id} className="w-full text-left p-5 sm:p-6 flex flex-wrap items-start gap-x-6 gap-y-1 cursor-pointer rounded-2xl">
           <div className="mr-auto">
             <h3 className="font-display font-bold text-2xl">{job.company}</h3>

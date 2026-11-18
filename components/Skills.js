@@ -9,7 +9,7 @@ export default function Skills() {
           <div key={g.group}>
             <h3 className="font-display font-bold text-xl">{g.group}</h3>
             <ul className="mt-3 flex flex-wrap gap-2">
-              {g.items.map((s) => <li key={s} className="bg-white border-2 border-ink rounded-full px-3 py-1 font-medium">{s}</li>)}
+              {g.items.map((s) => <li key={s} className="bg-surface border-2 border-line rounded-full px-3 py-1 font-medium">{s}</li>)}
             </ul>
           </div>
         ))}

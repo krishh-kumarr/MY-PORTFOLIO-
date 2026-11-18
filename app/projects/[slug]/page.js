@@ -38,11 +38,11 @@ export default async function ProjectPage({ params }) {
           <p className="mt-6 text-xl sm:text-2xl leading-snug">{p.summary}</p>
           <p className="mt-4 inline-block bg-mustard sticker rounded-full px-4 py-1.5 font-semibold">{p.result}</p>
           <ul className="mt-6 flex flex-wrap gap-2" aria-label="Built with">
-            {p.stack.map((s) => <li key={s} className="bg-white border-2 border-ink rounded-full px-3 py-1 font-medium">{s}</li>)}
+            {p.stack.map((s) => <li key={s} className="bg-surface border-2 border-line rounded-full px-3 py-1 font-medium">{s}</li>)}
           </ul>
           <div className="mt-6 flex flex-wrap gap-4">
-            {p.code && <a href={p.code} target="_blank" rel="noopener" className="inline-flex items-center gap-2 sticker sticker-hover rounded-full bg-white px-5 py-2.5 font-semibold"><Github size={18} aria-hidden="true" /> View the code</a>}
-            {p.extra && <a href={p.extra.href} target="_blank" rel="noopener" className="inline-flex items-center gap-2 sticker sticker-hover rounded-full bg-white px-5 py-2.5 font-semibold"><Github size={18} aria-hidden="true" /> {p.extra.label}</a>}
+            {p.code && <a href={p.code} target="_blank" rel="noopener" className="inline-flex items-center gap-2 sticker sticker-hover rounded-full bg-surface px-5 py-2.5 font-semibold"><Github size={18} aria-hidden="true" /> View the code</a>}
+            {p.extra && <a href={p.extra.href} target="_blank" rel="noopener" className="inline-flex items-center gap-2 sticker sticker-hover rounded-full bg-surface px-5 py-2.5 font-semibold"><Github size={18} aria-hidden="true" /> {p.extra.label}</a>}
           </div>
         </header>
 
@@ -59,7 +59,7 @@ export default async function ProjectPage({ params }) {
             <div className={phone ? 'mt-6 flex gap-5 overflow-x-auto pb-4 snap-x' : 'mt-6 grid gap-8'}>
               {p.shots.map((s) => (
                 <figure key={s.src} className={phone ? 'shrink-0 w-[220px] snap-start' : ''}>
-                  <Image src={s.src} alt={s.alt} width={s.w} height={s.h} sizes={phone ? '220px' : '(min-width: 1152px) 1100px, 95vw'} className="w-full h-auto rounded-2xl sticker bg-white" />
+                  <Image src={s.src} alt={s.alt} width={s.w} height={s.h} sizes={phone ? '220px' : '(min-width: 1152px) 1100px, 95vw'} className="w-full h-auto rounded-2xl sticker bg-surface" />
                 </figure>
               ))}
             </div>
@@ -69,7 +69,7 @@ export default async function ProjectPage({ params }) {
         <nav aria-labelledby="more" className="mt-20">
           <h2 id="more" className="font-display font-bold text-2xl">More projects</h2>
           <ul className="mt-4 flex flex-wrap gap-3">
-            {others.map((o) => <li key={o.slug}><Link href={`/projects/${o.slug}`} className="block sticker sticker-hover rounded-full bg-white px-4 py-2 font-semibold">{o.short}</Link></li>)}
+            {others.map((o) => <li key={o.slug}><Link href={`/projects/${o.slug}`} className="block sticker sticker-hover rounded-full bg-surface px-4 py-2 font-semibold">{o.short}</Link></li>)}
           </ul>
         </nav>
       </main>

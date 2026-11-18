@@ -13,9 +13,9 @@ describe.each([['Surat', Surat], ['Crossroads', Crossroads], ['Canteen', Canteen
   });
 });
 
-test('Canteen frames the crew illustration', () => {
+test('Canteen frames the crew illustration (no names)', () => {
   const { container } = render(<Canteen progress={motionValue(0)} />);
-  expect(container.querySelector('image[href="/art/crew-canteen.webp"]')).not.toBeNull();
+  expect(container.querySelector('image[href="/art/crew-selfie.webp"]')).not.toBeNull();
 });
 
 import Rooftops from '@/components/story/scenes/Rooftops';

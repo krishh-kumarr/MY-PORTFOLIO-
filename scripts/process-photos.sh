@@ -12,4 +12,4 @@ portrait srm-campus.jpg
 landscape prism-lab-2.jpg
 landscape infosys-team-steps.jpg
 cwebp -quiet -q 80 -resize 1400 0 "$SRC/photos/prism-certificate.png" -o public/photos/prism-certificate.webp
-cwebp -quiet -q 80 -resize 1024 0 "$SRC/art/crew-canteen.png" -o public/art/crew-canteen.webp
+cwebp -quiet -q 80 -resize 1024 0 "$SRC/art/crew-selfie.png" -o public/art/crew-selfie.webp

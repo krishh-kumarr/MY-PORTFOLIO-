@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { links } from '@/lib/data';
 
-const items = [['Story', '/#story'], ['Work', '/#work'], ['Projects', '/#projects'], ['Contact', '/#contact']];
+const items = [['Work', '/#work'], ['Projects', '/#projects'], ['Skills', '/#skills'], ['Contact', '/#contact'], ['Story', '/#story']];
 
 export default function Nav() {
   return (
-    <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b-2 border-ink">
+    <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b border-line">
       <nav aria-label="Main" className="mx-auto max-w-6xl px-5 h-16 flex items-center gap-6">
         <Link href="/" className="font-display font-bold text-lg tracking-tight mr-auto">Krish Kumar</Link>
         <ul className="hidden sm:flex items-center gap-6 font-medium">

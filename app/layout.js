@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${bricolage.variable} ${instrument.variable}`}>
       <body className="font-sans antialiased">
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 sticker rounded-lg">Skip to content</a>
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-surface focus:px-4 focus:py-2 sticker rounded-lg">Skip to content</a>
         <AvatarProvider>{children}</AvatarProvider>
       </body>
     </html>

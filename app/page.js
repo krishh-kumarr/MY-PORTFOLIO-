@@ -1,11 +1,11 @@
 import Nav from '@/components/Nav';
-import Intro from '@/components/Intro';
-import Story from '@/components/story/Story';
+import Hero from '@/components/Hero';
 import Experience from '@/components/Experience';
 import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Recognition from '@/components/Recognition';
 import Contact from '@/components/Contact';
+import StoryGate from '@/components/story/StoryGate';
 import Footer from '@/components/Footer';
 import Peek from '@/components/Peek';
 import HashScroll from '@/components/HashScroll';
@@ -15,16 +15,16 @@ export default function Home() {
     <>
       <Nav />
       <main id="main">
-        <Intro />
-        <div id="story"><Story /></div>
+        <Hero />
         <Experience />
         <Projects />
         <Skills />
         <Recognition />
         <Contact />
+        <StoryGate />
       </main>
       <Footer />
-      <Peek watch="top" hideOver="[data-chapter]" />
+      <Peek watch="top" hideOver="[data-story]" />
       <HashScroll />
     </>
   );
