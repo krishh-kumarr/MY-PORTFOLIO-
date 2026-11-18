@@ -48,7 +48,7 @@ export default function Traveler({ travel = 'walk', progress, mood = 'confident'
 
   const side = view !== 'front';
   return (
-    <motion.div style={{ left: x, opacity: op }} className="absolute bottom-[6dvh] h-[min(56dvh,560px)] lg:h-[min(64dvh,640px)] aspect-[254/898] pointer-events-none" aria-hidden="true">
+    <motion.div style={{ left: x, opacity: op }} className="absolute bottom-[7%] h-[70%] max-h-[640px] aspect-[254/898] pointer-events-none" aria-hidden="true">
       <motion.div style={{ y, rotate: rot, scaleY: sy }} className="relative h-full w-full origin-bottom">
         <div className="absolute -inset-x-[60%] inset-y-[-6%]"><AuraFx mode={mood === 'excited' ? 'gold' : 'none'} compact /></div>
         {ninja && view !== 'front' && <div className={`absolute top-[20%] h-[40%] w-[140%] speed-lines ${view === 'right' ? 'right-[70%]' : 'left-[70%] -scale-x-100'}`} />}
