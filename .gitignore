@@ -6,3 +6,4 @@
 .vercel
 *.log
 /design-assets
+/.superpowers
