@@ -54,7 +54,7 @@ export default function Hero() {
           </motion.p>
           <motion.div {...fade(0.32)} className="mt-9 flex flex-wrap gap-3">
             <a href="#projects" className="sticker sticker-hover rounded-full bg-mustard px-6 py-3 font-semibold text-lg inline-flex items-center gap-2">See my work <ArrowDown size={18} aria-hidden="true" /></a>
-            <a href="#story" className="sticker sticker-hover rounded-full bg-surface px-6 py-3 font-semibold text-lg inline-flex items-center gap-2"><Play size={18} aria-hidden="true" /> Watch my story</a>
+            <a href="#story" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event("play-story")); }} className="sticker sticker-hover rounded-full bg-surface px-6 py-3 font-semibold text-lg inline-flex items-center gap-2"><Play size={18} aria-hidden="true" /> Watch my story</a>
             <a href={links.resume} target="_blank" rel="noopener" className="rounded-full px-4 py-3 font-semibold inline-flex items-center gap-2 text-muted hover:text-fg"><FileText size={18} aria-hidden="true" /> Resume</a>
           </motion.div>
           <motion.dl {...fade(0.4)} className="mt-12 grid grid-cols-2 gap-4 max-w-xs">

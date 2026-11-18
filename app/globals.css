@@ -194,3 +194,16 @@ body { background: var(--color-night); color: var(--color-fg); color-scheme: dar
   radial-gradient(60% 50% at 75% 45%, rgb(230 164 42 / .18), transparent 70%),
   radial-gradient(50% 50% at 15% 10%, rgb(31 158 148 / .1), transparent 70%),
   radial-gradient(color-mix(in srgb, var(--color-fg) 8%, transparent) 1px, transparent 1px) 0 0 / 24px 24px; }
+
+/* Project folders */
+.folder-paper { transform: translate(calc(-50% + var(--x)), -6%) rotate(var(--r)); transition: transform .5s cubic-bezier(.2,.8,.2,1); transition-delay: calc(var(--k) * 40ms); }
+.group:hover .folder-paper, .group:focus-within .folder-paper { transform: translate(calc(-50% + var(--x) * 1.15), -44%) rotate(calc(var(--r) * 1.4)); }
+.folder-clip { clip-path: inset(-30% -6% 0 -6%); }
+.folder-flap { transition: transform .5s cubic-bezier(.2,.8,.2,1); transform-origin: bottom; }
+.group:hover .folder-flap { transform: perspective(600px) rotateX(-14deg); }
+@media (prefers-reduced-motion: reduce) { .folder-paper, .folder-flap { transition: none; } }
+
+/* Footer crowd: the friends illustration as ink line art, fading into the page */
+.footer-crowd { filter: grayscale(1) contrast(1.4) brightness(1.05); opacity: .45;
+  mask-image: linear-gradient(to top, #000 55%, transparent); }
+[data-theme="light"] .footer-crowd { mix-blend-mode: multiply; opacity: .55; }

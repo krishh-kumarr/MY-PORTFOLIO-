@@ -6,7 +6,6 @@ import Skills from '@/components/Skills';
 import Recognition from '@/components/Recognition';
 import Contact from '@/components/Contact';
 import StoryGate from '@/components/story/StoryGate';
-import Footer from '@/components/Footer';
 import Peek from '@/components/Peek';
 import HashScroll from '@/components/HashScroll';
 
@@ -21,9 +20,8 @@ export default function Home() {
         <Skills />
         <Recognition />
         <Contact />
-        <StoryGate />
       </main>
-      <Footer />
+      <StoryGate />
       <Peek watch="top" hideOver="[data-story]" />
       <HashScroll />
     </>

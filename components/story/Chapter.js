@@ -14,12 +14,17 @@ export function beatWindow(i, n) {
   return [START + i * w, START + (i + 1) * w];
 }
 
-function BeatSlot({ beat, i, n, progress, sectionRef }) {
+/** Spots around the frame where a caption can sit without covering the walker (bottom-left to centre). */
+const SPOTS = ['lg:top-[10%] lg:right-[6%]', 'lg:top-[9%] lg:left-[6%]', 'lg:top-[40%] lg:right-[4%]', 'lg:top-[12%] lg:left-[34%]', 'lg:bottom-[14%] lg:right-[8%]'];
+const spotFor = (id, i) => SPOTS[(id.length * 7 + i * 3) % SPOTS.length];
+
+function BeatSlot({ beat, i, n, progress, sectionRef, chapterId }) {
   const [s, e] = beatWindow(i, n);
   const f = (e - s) * 0.18;
   const last = i === n - 1;
   const opacity = useTransform(progress, last ? [s, s + f] : [s, s + f, e - f, e], last ? [0, 1] : [0, 1, 1, 0]);
   const y = useTransform(progress, [s, s + f], [40, 0]);
+  const scale = useTransform(progress, [s, s + f], [0.92, 1]);
   // Keyboard users: focusing a link inside a beat scrolls the story to that beat.
   const onFocusCapture = () => {
     const el = sectionRef?.current;
@@ -28,7 +33,7 @@ function BeatSlot({ beat, i, n, progress, sectionRef }) {
     window.scrollTo({ top: top + ((s + e) / 2) * (el.offsetHeight - window.innerHeight) });
   };
   return (
-    <motion.li style={{ opacity, y }} onFocusCapture={onFocusCapture} className="absolute inset-x-0 top-0 lg:top-1/2 lg:-translate-y-1/2">
+    <motion.li style={{ opacity, y, scale }} onFocusCapture={onFocusCapture} className={`absolute inset-x-0 top-0 lg:inset-x-auto lg:w-[400px] ${spotFor(chapterId, i)}`}>
       <Beat beat={beat} />
     </motion.li>
   );
@@ -74,9 +79,9 @@ export default function Chapter({ chapter, Scene, progress: played }) {
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none story-vignette" />
         <Traveler travel={chapter.travel} progress={progress} mood={mood} />
 
-        <ol className="absolute z-30 left-4 right-4 top-[8dvh] lg:top-0 lg:h-full lg:left-auto lg:right-[6vw] lg:w-[400px]">
+        <ol className="absolute z-30 left-4 right-4 top-[8dvh] lg:inset-0">
           {chapter.beats.map((beat, i) => (
-            <BeatSlot key={i} beat={beat} i={i} n={n} progress={progress} sectionRef={played ? null : ref} />
+            <BeatSlot key={i} beat={beat} i={i} n={n} progress={progress} sectionRef={played ? null : ref} chapterId={chapter.id} />
           ))}
         </ol>
 

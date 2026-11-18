@@ -18,15 +18,15 @@ test('the professional portfolio comes first and the story last', () => {
 
 test('the story is optional: nothing plays until the visitor presses play', () => {
   const { container } = renderHome();
-  expect(container).toHaveTextContent('refused to stop figuring things out');
+  expect(container).toHaveTextContent('See you around.');
   expect(container.querySelector('[data-chapter]')).toBeNull();
-  fireEvent.click(screen.getByRole('button', { name: /play the story/i }));
+  fireEvent.click(screen.getByRole('button', { name: /play my story/i }));
   expect(screen.getByRole('dialog', { name: /story/i })).toBeInTheDocument();
 });
 
 test('no friend is named anywhere on the page', () => {
   const { container } = renderHome();
-  fireEvent.click(screen.getByRole('button', { name: /play the story/i }));
+  fireEvent.click(screen.getByRole('button', { name: /play my story/i }));
   for (const name of ['Aditya', 'Aabidha', 'Vinith', 'Swastik']) expect(container.textContent).not.toContain(name);
 });
 

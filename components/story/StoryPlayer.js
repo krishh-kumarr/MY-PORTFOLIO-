@@ -7,10 +7,10 @@ import TimeCard from './TimeCard';
 import { scenes } from './scenes';
 import { chapters, cards } from '@/lib/story';
 
-export const CARD_SECONDS = 1.9;
-const BEAT_SECONDS = 3.4;
+export const CARD_SECONDS = 2.6;
+const BEAT_SECONDS = 5.2;
 /** How long a chapter plays: its title, then every beat with time to read it. */
-export const chapterSeconds = (c) => 2 + c.beats.length * BEAT_SECONDS;
+export const chapterSeconds = (c) => 3 + c.beats.length * BEAT_SECONDS;
 
 /**
  * The story as a film that plays by itself: time card → chapter → time card → …

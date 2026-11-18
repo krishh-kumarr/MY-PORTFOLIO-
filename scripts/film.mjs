@@ -13,7 +13,7 @@ for (const [name, vp] of [['desktop', { width: 1360, height: 860 }], ['phone', {
   let chapter = 0;
   await page.evaluate(() => document.getElementById('story').scrollIntoView({ behavior: 'instant' }));
   await wait(300);
-  await (await page.$('button ::-p-text(Play the story)')).click();
+  await (await page.$('button ::-p-text(Play my story)')).click();
   let t0 = Date.now();
   for (const shot of plan.split(',')) {
     const [c, sec] = shot.split('@').map(Number);
