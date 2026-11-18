@@ -24,7 +24,7 @@ export default function Traveler({ travel = 'walk', progress, mood = 'confident'
     const p = progress.get();
     const drive = travel === 'drive';
     const t = drive ? Math.max(0, Math.min(1, (p - 0.74) / 0.14)) : p;
-    const target = 2 + t * 50; // % of stage width
+    const target = 2 + Math.min(1, t * 1.35) * 50; // % of stage width
     if (s.x === null) { s.x = target; s.prev = target; }
     s.x = damp(s.x, target, 7, dt);
     const dx = s.x - s.prev; s.prev = s.x;

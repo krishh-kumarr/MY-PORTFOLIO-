@@ -8,7 +8,7 @@ import { scenes } from './scenes';
 import { chapters, cards } from '@/lib/story';
 
 export const CARD_SECONDS = 2.6;
-const BEAT_SECONDS = 5.2;
+const BEAT_SECONDS = 7;
 /** How long a chapter plays: its title, then every beat with time to read it. */
 export const chapterSeconds = (c) => 3 + c.beats.length * BEAT_SECONDS;
 
@@ -16,7 +16,7 @@ export const chapterSeconds = (c) => 3 + c.beats.length * BEAT_SECONDS;
  * The story as a film that plays by itself: time card → chapter → time card → …
  * Controls: pause/play (Space), next chapter (→), close (Esc).
  */
-export default function StoryPlayer({ onClose, onProjects }) {
+export default function StoryPlayer({ onClose, onProjects, inline = false }) {
   const [i, setI] = useState(0);
   const [phase, setPhase] = useState('card'); // 'card' | 'play' | 'end'
   const [paused, setPaused] = useState(false);
@@ -24,13 +24,22 @@ export default function StoryPlayer({ onClose, onProjects }) {
   const cardT = useRef(0);
   const bar = useRef(null);
 
+  const wrap = useRef(null);
+  const [inView, setInView] = useState(!inline);
+  useEffect(() => {
+    if (!inline) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.2 });
+    io.observe(wrap.current);
+    return () => io.disconnect();
+  }, [inline]);
+
   const goTo = useCallback((n) => {
-    if (n >= chapters.length) { setPhase('end'); return; }
+    if (n >= chapters.length) { if (inline) n = 0; else { setPhase('end'); return; } }
     setI(n); setPhase('card'); cardT.current = 0; progress.set(0);
-  }, [progress]);
+  }, [progress, inline]);
 
   useAnimationFrame((_, ms) => {
-    if (paused) return;
+    if (paused || !inView) return;
     const dt = Math.min(ms, 50) / 1000;
     if (phase === 'card') {
       cardT.current += dt;
@@ -48,6 +57,7 @@ export default function StoryPlayer({ onClose, onProjects }) {
   });
 
   useEffect(() => {
+    if (inline) return;
     const onKey = (e) => {
       if (e.key === 'Escape') onClose();
       else if (e.key === ' ') { e.preventDefault(); setPaused((p) => !p); }
@@ -57,11 +67,11 @@ export default function StoryPlayer({ onClose, onProjects }) {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
-  }, [onClose, goTo, i]);
+  }, [onClose, goTo, i, inline]);
 
   const c = chapters[i];
   return (
-    <div role="dialog" aria-modal="true" aria-label="Krish’s story" className="fixed inset-0 z-[70] bg-night text-fg">
+    <div ref={wrap} {...(inline ? { role: 'region' } : { role: 'dialog', 'aria-modal': 'true' })} aria-label="Krish’s story" className={inline ? 'relative h-[min(78dvh,720px)] overflow-hidden bg-night text-fg' : 'fixed inset-0 z-[70] bg-night text-fg'}>
       <AnimatePresence mode="sync">
         {phase === 'play' && (
           <motion.div key={`ch-${c.id}`} className="absolute inset-0" initial={{ scale: 1.08, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.96, opacity: 0 }} transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}>
@@ -84,7 +94,7 @@ export default function StoryPlayer({ onClose, onProjects }) {
       </AnimatePresence>
 
       <div className="absolute inset-x-0 bottom-0 z-[80] h-1 bg-white/10"><div ref={bar} className="h-full origin-left bg-mustard" style={{ transform: 'scaleX(0)' }} /></div>
-      <div className="absolute right-3 top-3 z-[80] flex gap-2">
+      {!inline && <div className="absolute right-3 top-3 z-[80] flex gap-2">
         {phase !== 'end' && (
           <>
             <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Play' : 'Pause'} className="grid place-items-center size-11 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer">{paused ? <Play size={18} /> : <Pause size={18} />}</button>
@@ -92,7 +102,7 @@ export default function StoryPlayer({ onClose, onProjects }) {
           </>
         )}
         <button type="button" onClick={onClose} aria-label="Close the story" className="grid place-items-center size-11 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer"><X size={18} /></button>
-      </div>
+      </div>}
     </div>
   );
 }

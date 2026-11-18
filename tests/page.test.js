@@ -16,17 +16,15 @@ test('the professional portfolio comes first and the story last', () => {
   expect(ids).toEqual(['top', 'work', 'projects', 'contact', 'story']);
 });
 
-test('the story is optional: nothing plays until the visitor presses play', () => {
+test('the story plays on its own at the bottom, with no play button', () => {
   const { container } = renderHome();
   expect(container).toHaveTextContent('See you around.');
-  expect(container.querySelector('[data-chapter]')).toBeNull();
-  fireEvent.click(screen.getByRole('button', { name: /play my story/i }));
-  expect(screen.getByRole('dialog', { name: /story/i })).toBeInTheDocument();
+  expect(screen.getByRole('region', { name: /story/i })).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: /play my story/i })).toBeNull();
 });
 
 test('no friend is named anywhere on the page', () => {
   const { container } = renderHome();
-  fireEvent.click(screen.getByRole('button', { name: /play my story/i }));
   for (const name of ['Aditya', 'Aabidha', 'Vinith', 'Swastik']) expect(container.textContent).not.toContain(name);
 });
 

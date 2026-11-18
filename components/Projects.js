@@ -1,8 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
-import { AnimatePresence } from 'motion/react';
-import ProjectGallery from './ProjectGallery';
+import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import Section from './Section';
 import ProjectVisual from './ProjectVisual';
@@ -13,7 +11,7 @@ const tones = { sky: 'bg-sky-soft mesh mesh-sky', teal: 'bg-teal-soft mesh mesh-
 const spots = { sky: '#7FD6CF', teal: '#5FD0C6', mustard: '#F0B544' };
 
 /** A project as a folder: hover slides its photos up like papers, click opens the gallery. */
-function Card({ p, onOpen }) {
+function Card({ p }) {
   const { react, settle } = useAvatar();
   const think = () => react('thoughtful', p.pitch, 0);
   const papers = (galleries[p.slug] ?? []).slice(0, 3);
@@ -37,7 +35,7 @@ function Card({ p, onOpen }) {
       <div className="p-6 flex flex-col gap-3 flex-1 border-t border-line">
         <div className="flex items-baseline gap-3">
           <h3 className="font-display font-bold text-2xl mr-auto">
-            <button type="button" onClick={onOpen} className="text-left after:absolute after:inset-0 after:content-[''] cursor-pointer focus-visible:outline-none">{p.name}</button>
+            <Link href={`/projects/${p.slug}`} className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">{p.name}</Link>
           </h3>
           <span className="text-muted font-medium tabular-nums shrink-0">{p.year}</span>
         </div>
@@ -46,18 +44,17 @@ function Card({ p, onOpen }) {
         <ul className="mt-auto pt-2 flex flex-wrap gap-2" aria-label="Built with">
           {p.stack.map((s) => <li key={s} className="text-sm font-medium bg-raised border border-line rounded-full px-2.5 py-0.5">{s}</li>)}
         </ul>
-        <span className="inline-flex items-center gap-1 font-semibold">Open the folder <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" /></span>
+        <span className="inline-flex items-center gap-1 font-semibold">Open the project <ArrowUpRight size={18} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" /></span>
       </div>
     </article>
   );
 }
 
 export default function Projects() {
-  const [open, setOpen] = useState(null);
   return (
-    <Section id="projects" title="Things I’ve built" intro="Each project is a folder. Hover to peek inside, click to open it." mood="thoughtful" say="Hover a project and I’ll explain it.">
+    <Section id="projects" title="Things I’ve built" intro="Each project is a folder. Hover to peek inside, open it for the full story." mood="thoughtful" say="Hover a project and I’ll explain it.">
       <div className="grid md:grid-cols-2 gap-8">
-        {projects.map((p) => <Card key={p.slug} p={p} onOpen={() => setOpen(p)} />)}
+        {projects.map((p) => <Card key={p.slug} p={p} />)}
       </div>
       <h3 className="mt-16 font-display font-bold text-2xl">Smaller builds</h3>
       <ul className="mt-4 grid sm:grid-cols-2 gap-x-8">
@@ -71,7 +68,6 @@ export default function Projects() {
           </li>
         ))}
       </ul>
-      <AnimatePresence>{open && <ProjectGallery key={open.slug} project={open} onClose={() => setOpen(null)} />}</AnimatePresence>
     </Section>
   );
 }

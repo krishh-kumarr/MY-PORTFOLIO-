@@ -7,7 +7,8 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import Peek from '@/components/Peek';
 import SetMood from '@/components/SetMood';
-import { projects } from '@/lib/data';
+import { projects, galleries } from '@/lib/data';
+import AutoCarousel from '@/components/AutoCarousel';
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -46,6 +47,8 @@ export default async function ProjectPage({ params }) {
           </div>
         </header>
 
+        {galleries[p.slug]?.length > 0 && <div className="mt-12"><AutoCarousel items={galleries[p.slug]} /></div>}
+
         <section aria-labelledby="built" className="mt-14 max-w-3xl">
           <h2 id="built" className="font-display font-bold text-3xl">What I built</h2>
           <ul className="mt-5 space-y-4 text-lg list-disc pl-6 marker:text-mustard">
@@ -53,18 +56,6 @@ export default async function ProjectPage({ params }) {
           </ul>
         </section>
 
-        {p.shots.length > 0 && (
-          <section aria-labelledby="shots" className="mt-14">
-            <h2 id="shots" className="font-display font-bold text-3xl">Screenshots</h2>
-            <div className={phone ? 'mt-6 flex gap-5 overflow-x-auto pb-4 snap-x' : 'mt-6 grid gap-8'}>
-              {p.shots.map((s) => (
-                <figure key={s.src} className={phone ? 'shrink-0 w-[220px] snap-start' : ''}>
-                  <Image src={s.src} alt={s.alt} width={s.w} height={s.h} sizes={phone ? '220px' : '(min-width: 1152px) 1100px, 95vw'} className="w-full h-auto rounded-2xl sticker bg-surface" />
-                </figure>
-              ))}
-            </div>
-          </section>
-        )}
 
         <nav aria-labelledby="more" className="mt-20">
           <h2 id="more" className="font-display font-bold text-2xl">More projects</h2>

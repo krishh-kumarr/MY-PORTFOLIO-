@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { galleries, awardImages, badges, projects } from '@/lib/data';
-import ProjectGallery, { EFFECTS } from '@/components/ProjectGallery';
+import AutoCarousel from '@/components/AutoCarousel';
 
 const exists = (src) => fs.existsSync(path.join(process.cwd(), 'public', src));
 
@@ -21,18 +21,13 @@ test('Red Bull photos appear on VibeOut, lab photo on ThreatSense and the SQL op
   expect(galleries['sql-optimizer'].some((i) => i.src.includes('lab-coding'))).toBe(true);
 });
 
-test('each project opens with its own effect', () => {
-  const used = projects.map((p) => EFFECTS[p.slug]);
-  expect(new Set(used).size).toBe(projects.length);
+test('PRISM work-let slide is in the SQL optimizer gallery, shown on a laptop', () => {
+  const ws = galleries['sql-optimizer'].find((i) => i.src.includes('prism-workslide'));
+  expect(ws.frame).toBe('mac');
 });
 
-test('the gallery steps through images and closes with Escape', () => {
-  const onClose = vi.fn();
-  render(<ProjectGallery project={projects.find((p) => p.slug === 'parentbud')} onClose={onClose} />);
-  expect(screen.getByRole('dialog', { name: /parentbud/i })).toBeInTheDocument();
-  expect(screen.getByText('1 / 5')).toBeInTheDocument();
-  fireEvent.click(screen.getByRole('button', { name: /next image/i }));
-  expect(screen.getByText('2 / 5')).toBeInTheDocument();
-  fireEvent.keyDown(window, { key: 'Escape' });
-  expect(onClose).toHaveBeenCalled();
+test('project photos play by themselves without captions or controls', () => {
+  render(<AutoCarousel items={galleries.parentbud} />);
+  expect(screen.queryByRole('button')).toBeNull();
+  expect(screen.queryByText(/Krish/)).toBeNull();
 });
