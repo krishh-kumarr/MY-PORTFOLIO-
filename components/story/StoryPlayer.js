@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useAnimationFrame, useMotionValue } from 'motion/react';
-import { Pause, Play, SkipForward, X, RotateCcw } from 'lucide-react';
+import { Pause, Play, SkipForward, SkipBack, X, RotateCcw } from 'lucide-react';
 import Chapter from './Chapter';
 import TimeCard from './TimeCard';
 import { scenes } from './scenes';
@@ -20,6 +20,8 @@ export default function StoryPlayer({ onClose, onProjects, inline = false }) {
   const [i, setI] = useState(0);
   const [phase, setPhase] = useState('card'); // 'card' | 'play' | 'end'
   const [paused, setPaused] = useState(false);
+  const [speed, setSpeed] = useState(1);
+  const SPEEDS = [0.75, 1, 1.5, 2];
   const progress = useMotionValue(0);
   const cardT = useRef(0);
   const bar = useRef(null);
@@ -40,7 +42,7 @@ export default function StoryPlayer({ onClose, onProjects, inline = false }) {
 
   useAnimationFrame((_, ms) => {
     if (paused || !inView) return;
-    const dt = Math.min(ms, 50) / 1000;
+    const dt = (Math.min(ms, 50) / 1000) * speed;
     if (phase === 'card') {
       cardT.current += dt;
       if (cardT.current >= CARD_SECONDS) setPhase('play');
@@ -94,6 +96,14 @@ export default function StoryPlayer({ onClose, onProjects, inline = false }) {
       </AnimatePresence>
 
       <div className="absolute inset-x-0 bottom-0 z-[80] h-1 bg-white/10"><div ref={bar} className="h-full origin-left bg-mustard" style={{ transform: 'scaleX(0)' }} /></div>
+      {inline && (
+        <div className="absolute right-3 bottom-4 z-[80] flex items-center gap-2">
+          <button type="button" onClick={() => goTo(Math.max(0, i - 1))} aria-label="Previous chapter" className="grid place-items-center size-10 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white"><SkipBack size={16} /></button>
+          <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Play' : 'Pause'} className="grid place-items-center size-10 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white">{paused ? <Play size={16} /> : <Pause size={16} />}</button>
+          <button type="button" onClick={() => goTo(i + 1)} aria-label="Next chapter" className="grid place-items-center size-10 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white"><SkipForward size={16} /></button>
+          <button type="button" onClick={() => setSpeed((v) => SPEEDS[(SPEEDS.indexOf(v) + 1) % SPEEDS.length])} aria-label={`Playback speed ${speed}x`} className="h-10 min-w-14 px-3 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white font-semibold tabular-nums text-sm">{speed}×</button>
+        </div>
+      )}
       {!inline && <div className="absolute right-3 top-3 z-[80] flex gap-2">
         {phase !== 'end' && (
           <>

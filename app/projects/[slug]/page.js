@@ -30,7 +30,7 @@ export default async function ProjectPage({ params }) {
 
   return (
     <>
-      <ScrollTop />
+      <ScrollTop key={slug} />
       <Nav />
       <SetMood mood="thoughtful" say={p.pitch} />
       <main id="main" className="mx-auto max-w-6xl px-5 py-12">
@@ -49,7 +49,7 @@ export default async function ProjectPage({ params }) {
           </div>
         </header>
 
-        {galleries[p.slug]?.length > 0 && <div className="mt-12"><AutoCarousel items={galleries[p.slug]} /></div>}
+        {galleries[p.slug]?.length > 0 && <div className="mt-12"><AutoCarousel key={p.slug} items={galleries[p.slug]} /></div>}
 
         <section aria-labelledby="built" className="mt-14 max-w-3xl">
           <h2 id="built" className="font-display font-bold text-3xl">What I built</h2>
