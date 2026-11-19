@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { links } from '@/lib/data';
 import ThemeToggle from './ThemeToggle';
+import KrishMascot from './KrishMascot';
 
 const items = [['Work', '/#work'], ['Projects', '/#projects'], ['Skills', '/#skills'], ['Contact', '/#contact'], ['Story', '/#story']];
 
@@ -8,7 +9,7 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-40 bg-night/80 backdrop-blur-md border-b border-line">
       <nav aria-label="Main" className="mx-auto max-w-6xl px-5 h-16 flex items-center gap-4 sm:gap-6">
-        <Link href="/" className="font-display font-bold text-lg tracking-tight mr-auto">Krish Kumar</Link>
+        <div className="mr-auto flex items-center gap-2"><KrishMascot size={44} /><Link href="/" className="font-display font-bold text-lg tracking-tight">Krish Kumar</Link></div>
         <ul className="hidden sm:flex items-center gap-6 font-medium">
           {items.map(([label, href]) => (
             <li key={href}><Link href={href} className="underline-offset-4 decoration-2 hover:underline">{label}</Link></li>

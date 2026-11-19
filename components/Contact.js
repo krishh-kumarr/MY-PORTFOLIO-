@@ -1,5 +1,6 @@
 'use client';
 import { useRef, useState } from 'react';
+import KrishMascot from './KrishMascot';
 import emailjs from '@emailjs/browser';
 import { Mail } from 'lucide-react';
 import { Github, Linkedin, Instagram } from './BrandIcons';
@@ -38,6 +39,8 @@ export default function Contact() {
   return (
     <Section id="contact" title="Let’s talk" intro="Internships, projects or a hackathon team: send a message and it lands straight in my inbox." mood="laughing" say="Say hi! The form goes straight to my inbox.">
       <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10">
+        <div className="space-y-3">
+        <div className="flex items-end gap-3 mb-2"><KrishMascot size={150} /><p className="text-muted pb-4">Go on, click me. Then say hi.</p></div>
         <ul className="space-y-3">
           {direct.map(([Icon, label, value, href]) => (
             <li key={label}>
@@ -48,6 +51,7 @@ export default function Contact() {
             </li>
           ))}
         </ul>
+        </div>
         <form ref={form} onSubmit={send} className="spot bg-surface brut brut-static rounded-3xl p-6 sm:p-8 space-y-5" style={{ '--spot': '#5FD0C6' }}>
           <div className="grid sm:grid-cols-2 gap-5">
             <label className="block"><span className="block font-semibold mb-1.5">Name</span><input name="user_name" required autoComplete="name" className={field} /></label>

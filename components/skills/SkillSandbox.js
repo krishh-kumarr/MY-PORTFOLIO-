@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useInView, useReducedMotion } from 'motion/react';
 import { ELEMENTS } from './elements';
+import KrishMascot from '../KrishMascot';
 
 /**
  * Every skill as a physical tag. Grab, throw and stack them.
@@ -118,7 +119,7 @@ export default function SkillSandbox({ groups, focus, onFocus }) {
   return (
     <div className="mt-12">
       <div className="flex flex-wrap items-center gap-3">
-        <h3 className="font-display font-bold text-2xl mr-auto">The sandbox</h3>
+        <div className="mr-auto flex items-center gap-3"><KrishMascot size={64} /><h3 className="font-display font-bold text-2xl">The sandbox</h3></div>
         {ELEMENTS.map((el, i) => (
           <button key={el.kind} type="button" onClick={() => { onFocus(i); api.current?.summon(i); }}
             className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold transition-colors cursor-pointer"

@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { X } from 'lucide-react';
-import { AvatarFace } from './Avatar';
+import KrishMascot from './KrishMascot';
 import Bubble from './Bubble';
 import { useAvatar } from './AvatarProvider';
 
@@ -54,16 +54,14 @@ export default function Peek({ watch = 'top', always = false, hideOver }) {
               <button type="button" onClick={() => setQuiet(true)} aria-label="Hide message" className="absolute top-2 right-2 p-1 rounded-full hover:bg-sky-soft"><X size={14} /></button>
             </div>
           )}
-          <button
-            type="button"
+          <div
             onClick={() => { setQuiet(false); react('surprised', 'Hey! I’m just here to help.', 1600); }}
             onPointerEnter={() => react('laughing', say, 0)}
             onPointerLeave={settle}
-            aria-label="Show avatar message"
-            className="pointer-events-auto relative size-14 sm:size-24 rounded-full bg-sky sticker overflow-hidden"
+            className="pointer-events-auto relative rounded-full bg-sky sticker overflow-hidden grid place-items-center size-16 sm:size-24"
           >
-            <AvatarFace mood={mood} sizes="96px" className="absolute inset-x-1 -bottom-1 aspect-[640/700]" />
-          </button>
+            <KrishMascot size={96} className="scale-[.66] sm:scale-100" />
+          </div>
         </motion.aside>
       )}
     </AnimatePresence>
