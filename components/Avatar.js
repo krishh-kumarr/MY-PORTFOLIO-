@@ -6,9 +6,21 @@ import { expressions } from '@/lib/data';
 const SIZES = { confident: [640, 692], laughing: [640, 782], thoughtful: [640, 704], surprised: [640, 790], excited: [640, 828] };
 
 /** Stack of expression images that crossfade; heads are aligned by the cut-out step. */
+// Body language per expression: each mood moves differently.
+const MOVES = {
+  confident: { animate: { rotate: 0, y: 0 }, transition: { duration: 0.4 } },
+  laughing: { animate: { rotate: [0, -1.5, 1, 0], y: 0 }, transition: { duration: 0.6, ease: 'easeOut' } },
+  thoughtful: { animate: { rotate: -2.5, y: 0 }, transition: { duration: 0.6, ease: 'easeOut' } },
+  surprised: { animate: { y: [0, -6, 0], rotate: 0 }, transition: { duration: 0.4, ease: 'easeOut' } },
+  excited: { animate: { y: [0, -4, 0], rotate: 0 }, transition: { duration: 0.45, ease: 'easeOut' } },
+};
+
 export function AvatarFace({ mood, sizes, priority = false, className = '' }) {
+  const reduce = useReducedMotion();
+  const move = MOVES[mood] ?? MOVES.confident;
   return (
-    <div className={`relative ${className}`}>
+    <motion.div className={`relative ${className}`} style={{ transformOrigin: '50% 100%' }}
+      animate={reduce ? undefined : move.animate} transition={move.transition}>
       {expressions.map((e) => {
         const [w, h] = SIZES[e];
         return (
@@ -26,7 +38,7 @@ export function AvatarFace({ mood, sizes, priority = false, className = '' }) {
           />
         );
       })}
-    </div>
+    </motion.div>
   );
 }
 

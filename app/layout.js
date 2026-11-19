@@ -3,6 +3,7 @@ import './globals.css';
 import { AvatarProvider } from '@/components/AvatarProvider';
 import { THEME_SCRIPT } from '@/components/ThemeToggle';
 import Pointer from '@/components/Pointer';
+import Ambient from '@/components/Ambient';
 
 const bricolage = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-bricolage', display: 'swap' });
 const instrument = Instrument_Sans({ subsets: ['latin'], variable: '--font-instrument', display: 'swap' });
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
       <head><script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} /></head>
       <body className="font-sans antialiased">
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-surface focus:px-4 focus:py-2 sticker rounded-lg">Skip to content</a>
+        <Ambient />
         <AvatarProvider>{children}</AvatarProvider>
         <Pointer />
       </body>

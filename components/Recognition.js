@@ -18,7 +18,7 @@ export default function Recognition() {
         {awards.map((a, i) => {
           const { Icon, spot } = LOOK[i % LOOK.length];
           return (
-            <li key={a.title} className={`spot shine relative bg-surface sticker rounded-2xl p-6 ${i === 0 ? 'lg:col-span-2 lg:row-span-1' : ''}`} style={{ '--spot': spot }}>
+            <li key={a.title} className={`spot shine relative bg-surface brut rounded-2xl p-6 ${i === 0 ? 'lg:col-span-2 lg:row-span-1' : ''}`} style={{ '--spot': spot }}>
               <span className="shine-bar" aria-hidden="true" />
               {awardImages[a.title] && (
                 <div className="group/img mb-5 -mx-2 -mt-2 h-40 overflow-hidden rounded-xl border border-line bg-raised transition-[height] duration-500 hover:h-72">
@@ -37,7 +37,7 @@ export default function Recognition() {
           );
         })}
       </ul>
-      <div className="mt-10 spot bg-surface sticker rounded-2xl p-6 sm:p-8" style={{ '--spot': '#5FD0C6' }}>
+      <div className="mt-10 spot bg-surface brut brut-static rounded-2xl p-6 sm:p-8" style={{ '--spot': '#5FD0C6' }}>
         <div>
           <h3 className="flex items-center gap-2 font-display font-bold text-xl"><BadgeCheck aria-hidden="true" className="text-teal" /> Certifications</h3>
           <ul className="mt-4 flex flex-wrap gap-3">

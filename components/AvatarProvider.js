@@ -17,7 +17,25 @@ export function AvatarProvider({ children }) {
   const settle = useCallback(() => { clearTimeout(timer.current); setFlash(null); }, []);
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  const current = flash ?? base;
+  // Idle life: every few seconds, briefly show another expression so all five get used.
+  useEffect(() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const cycle = ['thoughtful', 'laughing', 'excited', 'surprised', 'confident'];
+    let k = 0;
+    const id = setInterval(() => {
+      setFlash((f) => {
+        if (f && !f.idle) return f; // a real reaction is showing; leave it
+        if (f?.idle) return null;   // end the idle flash
+        const mood = cycle[k++ % cycle.length];
+        return { mood, say: undefined, idle: true };
+      });
+    }, 4500);
+    return () => clearInterval(id);
+  }, []);
+
+  const current = flash
+    ? { mood: flash.idle && flash.mood === base.mood ? 'laughing' : flash.mood, say: flash.say ?? base.say }
+    : base;
   return (
     <AvatarContext.Provider value={{ ...current, setBase, react, settle }}>
       {children}
