@@ -97,21 +97,21 @@ export default function StoryPlayer({ onClose, onProjects, inline = false }) {
 
       <div className="absolute inset-x-0 bottom-0 z-[80] h-1 bg-white/10"><div ref={bar} className="h-full origin-left bg-mustard" style={{ transform: 'scaleX(0)' }} /></div>
       {inline && (
-        <div className="absolute right-3 bottom-4 z-30 flex items-center gap-2">
-          <button type="button" onClick={() => goTo(Math.max(0, i - 1))} aria-label="Previous chapter" className="grid place-items-center size-10 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white"><SkipBack size={16} /></button>
-          <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Play' : 'Pause'} className="grid place-items-center size-10 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white">{paused ? <Play size={16} /> : <Pause size={16} />}</button>
-          <button type="button" onClick={() => goTo(i + 1)} aria-label="Next chapter" className="grid place-items-center size-10 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white"><SkipForward size={16} /></button>
-          <button type="button" onClick={() => setSpeed((v) => SPEEDS[(SPEEDS.indexOf(v) + 1) % SPEEDS.length])} aria-label={`Playback speed ${speed}x`} className="h-10 min-w-14 px-3 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer text-white font-semibold tabular-nums text-sm">{speed}×</button>
+        <div className="absolute right-3 bottom-5 z-[85] flex items-center gap-2 rounded-full bg-black/55 p-1.5 backdrop-blur-md ring-1 ring-white/15 shadow-[0_8px_24px_rgba(0,0,0,.45)]">
+          <button type="button" onClick={() => goTo(Math.max(0, i - 1))} aria-label="Previous chapter" className="grid place-items-center size-10 rounded-full bg-white/10 border border-white/25 text-white hover:bg-mustard hover:text-[#16110A] hover:border-mustard transition-colors cursor-pointer text-white"><SkipBack size={16} /></button>
+          <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Play' : 'Pause'} className="grid place-items-center size-10 rounded-full bg-white/10 border border-white/25 text-white hover:bg-mustard hover:text-[#16110A] hover:border-mustard transition-colors cursor-pointer text-white">{paused ? <Play size={16} /> : <Pause size={16} />}</button>
+          <button type="button" onClick={() => goTo(i + 1)} aria-label="Next chapter" className="grid place-items-center size-10 rounded-full bg-white/10 border border-white/25 text-white hover:bg-mustard hover:text-[#16110A] hover:border-mustard transition-colors cursor-pointer text-white"><SkipForward size={16} /></button>
+          <button type="button" onClick={() => setSpeed((v) => SPEEDS[(SPEEDS.indexOf(v) + 1) % SPEEDS.length])} aria-label={`Playback speed ${speed}x`} className="h-10 min-w-14 px-3 rounded-full bg-white/10 border border-white/25 text-white hover:bg-mustard hover:text-[#16110A] hover:border-mustard transition-colors cursor-pointer text-white font-semibold tabular-nums text-sm">{speed}×</button>
         </div>
       )}
-      {!inline && <div className="absolute right-3 top-3 z-[80] flex gap-2">
+      {!inline && <div className="absolute right-3 top-3 z-[85] flex gap-2">
         {phase !== 'end' && (
           <>
-            <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Play' : 'Pause'} className="grid place-items-center size-11 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer">{paused ? <Play size={18} /> : <Pause size={18} />}</button>
-            <button type="button" onClick={() => goTo(i + 1)} aria-label="Next chapter" className="grid place-items-center size-11 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer"><SkipForward size={18} /></button>
+            <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Play' : 'Pause'} className="grid place-items-center size-11 rounded-full bg-white/10 border border-white/25 text-white hover:bg-mustard hover:text-[#16110A] hover:border-mustard transition-colors cursor-pointer">{paused ? <Play size={18} /> : <Pause size={18} />}</button>
+            <button type="button" onClick={() => goTo(i + 1)} aria-label="Next chapter" className="grid place-items-center size-11 rounded-full bg-white/10 border border-white/25 text-white hover:bg-mustard hover:text-[#16110A] hover:border-mustard transition-colors cursor-pointer"><SkipForward size={18} /></button>
           </>
         )}
-        <button type="button" onClick={onClose} aria-label="Close the story" className="grid place-items-center size-11 rounded-full bg-night/70 backdrop-blur border border-line hover:border-mustard cursor-pointer"><X size={18} /></button>
+        <button type="button" onClick={onClose} aria-label="Close the story" className="grid place-items-center size-11 rounded-full bg-white/10 border border-white/25 text-white hover:bg-mustard hover:text-[#16110A] hover:border-mustard transition-colors cursor-pointer"><X size={18} /></button>
       </div>}
     </div>
   );
